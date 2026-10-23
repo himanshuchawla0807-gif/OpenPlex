@@ -1,0 +1,50 @@
+{
+  "name": "openplex",
+  "private": true,
+  "version": "0.1.0",
+  "type": "module",
+  "scripts": {
+    "check:release": "node scripts/check-release.mjs",
+    "test": "node --experimental-strip-types --test --test-isolation=none scripts/living-world.test.ts scripts/office-team.test.ts scripts/campus.test.ts scripts/character-motion.test.ts scripts/procedural.test.ts scripts/bruno-rig.test.ts scripts/bruno-sprite.test.ts scripts/office-tasks.test.ts scripts/campus-redesign.test.ts",
+    "dev": "vite",
+    "build": "tsc -b && vite build",
+    "lint": "oxlint",
+    "preview": "vite preview",
+    "dev:builder": "vite --host 127.0.0.1 --port 5180 --strictPort",
+    "test:builder": "node --experimental-strip-types --test src/builder/workspace.test.mjs src/builder/agentSessions.test.mjs src/builder/taskSchedule.test.mjs src/builder/employee-profile.test.mjs src/builder/conversation.test.mjs src/builder/employeeSpaces.test.mjs src/builder/builderHistory.test.mjs src/builder/releaseSafety.test.mjs src/builder/officeStatus.test.mjs",
+    "test:native": "sh scripts/test-native.sh",
+    "test:webkit": "swift scripts/check-webkit-canvas.swift",
+    "test:terminal": "sh scripts/test-terminal.sh",
+    "test:employee-workspace": "sh scripts/test-employee-workspace.sh",
+    "test:http": "sh scripts/test-workspace-http.sh",
+    "app:build": "bash native/OpenPlex/build.sh",
+    "app:open": "open output/OpenPlex.app"
+  },
+  "dependencies": {
+    "@clayzo/animation": "^0.3.17",
+    "@clayzo/webgl-player": "^0.3.17",
+    "@xterm/addon-fit": "^0.11.0",
+    "@xterm/xterm": "^6.0.0",
+    "pdfjs-dist": "^6.4.299",
+    "react": "^19.2.8",
+    "react-dom": "^19.2.8"
+  },
+  "devDependencies": {
+    "@types/node": "^24.13.3",
+    "@types/react": "^19.2.18",
+    "@types/react-dom": "^19.2.7",
+    "@vitejs/plugin-react": "^6.1.1",
+    "oxlint": "^1.81.0",
+    "typescript": "~6.0.2",
+    "vite": "^8.3.0"
+  },
+  "description": "A local-first office for your AI coworkers.",
+  "license": "MIT",
+  "engines": {
+    "node": ">=24"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/himanshuchawla0807-gif/OpenPlex.git"
+  }
+}
