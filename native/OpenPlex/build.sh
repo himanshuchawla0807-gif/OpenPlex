@@ -16,6 +16,8 @@ mkdir -p "$app_dir/Contents/MacOS" "$app_dir/Contents/Resources/Web"
 cp "$binary_dir/OpenPlex" "$app_dir/Contents/MacOS/OpenPlex"
 cp "$script_dir/Resources/OpenPlex.icns" "$app_dir/Contents/Resources/OpenPlex.icns"
 cp "$project_dir/public/brand/openplex-logo.png" "$app_dir/Contents/Resources/AppIcon.png"
+cp "$script_dir/Resources/AppIcons/AppIconLight.png" "$app_dir/Contents/Resources/AppIconLight.png"
+cp "$script_dir/Resources/AppIcons/AppIconDark.png" "$app_dir/Contents/Resources/AppIconDark.png"
 # Synchronize this generated bundle only; original artwork and project data are untouched.
 rsync -a --delete "$project_dir/dist/" "$app_dir/Contents/Resources/Web/"
 cat > "$app_dir/Contents/Info.plist" <<'PLIST'

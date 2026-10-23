@@ -268,6 +268,7 @@ struct GlassArtPanel: NSViewRepresentable {
 
 struct RootView: View {
     @AppStorage("openplex.appearance") private var appearance = "system"
+    @Environment(\.colorScheme) private var colorScheme
     // The welcome sequence is part of every launch, including recording sessions.
     @LocalState private var finished = false
     @StateObject private var workspace = WorkspaceModel.shared
@@ -282,9 +283,20 @@ struct RootView: View {
         .preferredColorScheme(appearance == "system" ? nil : appearance == "dark" ? .dark : .light)
         .frame(minWidth:940,minHeight:650)
         .task { workspace.start() }
+        .onAppear { updateApplicationIcon() }
+        .onChange(of:appearance) { _ in updateApplicationIcon() }
+        .onChange(of:colorScheme) { _ in updateApplicationIcon() }
         .onReceive(NotificationCenter.default.publisher(for:commandNotification)) { notification in
             if notification.object as? String == "welcome" { finished = false }
         }
+    }
+    // Change the running Dock tile without rewriting the signed application bundle.
+    private func updateApplicationIcon() {
+        let dark = appearance == "dark" || (appearance == "system" && colorScheme == .dark)
+        let resource = dark ? "AppIconDark" : "AppIconLight"
+        guard let url = Bundle.main.url(forResource:resource,withExtension:"png"),
+              let image = NSImage(contentsOf:url) else { return }
+        NSApplication.shared.applicationIconImage = image
     }
     private func send(_ action:String) { NotificationCenter.default.post(name:commandNotification,object:action) }
 }
