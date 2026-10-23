@@ -45,3 +45,10 @@ test('resizing a terminal and wrapping its prompt cannot duplicate a chat turn',
  assert.deepEqual(mergeConversation(saved,live),saved)
  assert.deepEqual(mergeConversation(mergeConversation(saved,live),[user,{role:'assistant',text:'Gus is ready.'}]),saved)
 })
+test('Codex installer menu is chrome, including wrapped replay from older app transcripts',()=>{
+ const menu="1. Update now (runs sh -c 'curl -fsSL https://chatgpt.com/\n   codex/install.sh | CODEX_NON_INTERACTIVE=1 sh')\n2. Skip\n3. Skip until next version"
+ const task={role:'user',text:'Introduce yourself'},answer={role:'assistant',text:'I am Bruno.'}
+ assert.deepEqual(projectConversation('› '+menu+'\n› Introduce yourself\n• I am Bruno.'),[task,answer])
+ assert.deepEqual(mergeConversation([{role:'user',text:menu},task,answer],[]),[task,answer])
+ assert.deepEqual(projectConversation('› 1. Update now the employee profile\n• Which role?'),[{role:'user',text:'1. Update now the employee profile'},{role:'assistant',text:'Which role?'}])
+})

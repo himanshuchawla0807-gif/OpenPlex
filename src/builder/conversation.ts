@@ -1,4 +1,5 @@
 export interface ConversationMessage {role:'user'|'assistant';text:string}
+const cliUpdateMenu=(text:string)=>/^1\.\s+Update now \(runs [\s\S]*https:\/\/chatgpt\.com\/\s*codex\/install\.sh/.test(text)
 const placeholder=/^(?:Ask Codex to do anything|What would you like to do\?)$/i
 const chrome=/^(?:Worked for \d|[─━]{3,}|[╭╰│╮╯]|[›❯]\s*$|GPT[-– ]|gpt-|\? for shortcuts|\d+% context|context left|Tip:|shift\+tab|esc to interrupt|[⚠△].*warnings|[•✻✽✶✳⏺]\s*(?:Working|Thinking|Running|Reading|Searching|Compacting))/i
 /** Project known CLI speaker markers from xterm's decoded, unwrapped buffer.
@@ -15,9 +16,11 @@ export function projectConversation(snapshot:string):ConversationMessage[]{
   else if(assistant){current={role:'assistant',text:assistant[1]};messages.push(current);skip=false}
   else if(current&&!skip){current.text+='\n'+line.replace(/^ {2}/,'')}
  }
- return messages.map(m=>({...m,text:m.text.trim()})).filter(m=>m.text)
+ return messages.map(m=>({...m,text:m.text.trim()})).filter(m=>m.text&&!(m.role==='user'&&cliUpdateMenu(m.text)))
 }
 export function mergeConversation(saved:ConversationMessage[],live:ConversationMessage[]):ConversationMessage[]{
+ saved=saved.filter(m=>!(m.role==='user'&&cliUpdateMenu(m.text)))
+ live=live.filter(m=>!(m.role==='user'&&cliUpdateMenu(m.text)))
  if(!live.length)return saved
  live=live.map(message=>({...message}))
  const lastSavedUser=saved.findLast(m=>m.role==='user'),lastLiveUser=live.findLast(m=>m.role==='user')

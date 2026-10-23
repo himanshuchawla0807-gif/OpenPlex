@@ -8,7 +8,7 @@ This record describes the October 2026 source release. OpenPlex is a beta. These
 | --- | --- | --- |
 | TypeScript / Vite production build | Passed | Current source compiles and bundles |
 | Oxlint | Passed | Configured static rules |
-| Builder, profiles, storage and communication | 57 tests passed | Protocol validation, configuration merging, isolation, routing and retention |
+| Builder, profiles, storage and communication | 58 tests passed | Protocol validation, configuration merging, isolation, routing and retention |
 | Office world, layout and animation | 70 passed; 1 archived-artwork checksum test skipped | Layout and simulation regressions; not every visual pose |
 | Native streamed runtime | Passed | Codex, Claude and OpenCode fixtures, UTF-8, resume ownership, cancellation and status isolation |
 | Interactive terminal | Passed | PTY byte I/O, resize, replay, independent identity, stale-event rejection, authorization and close/reopen |
@@ -23,7 +23,7 @@ Test implementations are committed under `scripts/`, `src/builder/*.test.mjs` an
 
 Browser QA covers employee selection, fresh chats preserving employee configuration, independent panel input, expansion, paging, spaces, room replies, escaped message HTML, and office-scoped employee lists. The native UI pass also verified the team workspace folder picker and persisted authorization; folder changes are disabled while an office has live work/session connections. The screenshot campus contains all 12 room types; the character catalog contains 40 available characters in an empty office.
 
-Controlled live status requests succeeded with installed Codex and Claude Code. The release screenshot pass connected six independent native Codex PTYs and received six configured-name/role introduction replies without file or tool actions; Chat and Terminal screenshots show those actual sessions. All six demo sessions were ended after capture. A fresh source-tree install, production build and builder/world suites also passed. PTY startup and adapter tests do not establish authenticated inference for every advertised CLI. Other harnesses need their own installed, authenticated setup. An MCP or plugin reference is not proof that the integration runs correctly; test each configuration before trusting its status.
+Controlled live status requests succeeded with installed Codex and Claude Code. The release screenshot pass connected six independent native Codex PTYs and received six configured-name/role introduction replies without file or tool actions; Chat and Terminal screenshots show those actual sessions. All six demo sessions were ended after capture. A startup-menu transcript regression was fixed and tested; returning from Terminal now scrolls Chat to its newest message. A fresh source-tree install, production build and builder/world suites also passed. PTY startup and adapter tests do not establish authenticated inference for every advertised CLI. Other harnesses need their own installed, authenticated setup. An MCP or plugin reference is not proof that the integration runs correctly; test each configuration before trusting its status.
 
 REA statically identified the final local app executable as an Apple Silicon Mach-O. Static artifact inspection is not runtime security certification.
 

@@ -36,6 +36,7 @@ export function HarnessTerminal({onNewChat,initialWorking=false,embedded=false,c
  const freshConversation=useRef(false),restartAfterClose=useRef(false),clearTerminal=useRef<()=>void>(()=>{})
  const start=useRef<(fresh?:boolean)=>void>(()=>{}),send=useRef<(data:string)=>void>(()=>{}),harness=harnessInfo(profile.harness)
  useEffect(()=>{if(chat.current&&followOutput.current)chat.current.scrollTop=chat.current.scrollHeight},[messages,output])
+ useEffect(()=>{if(view==='chat'){followOutput.current=true;if(chat.current)chat.current.scrollTop=chat.current.scrollHeight}},[view])
  useEffect(()=>{if(!connecting)return;const timer=window.setTimeout(()=>{setConnecting(false);setStatus('Connection timed out');setError('The Mac connection did not respond. Quit and reopen the updated OpenPlex app, then connect again.')},12000);return ()=>window.clearTimeout(timer)},[connecting])
  useEffect(()=>{const field=composer.current;if(field){field.style.height='auto';field.style.height=Math.min(180,Math.max(52,field.scrollHeight))+'px'}},[command])
  const config=JSON.stringify({provider:profile.harness,systemPrompt:profile.systemPrompt,brief:employeeBrief(profile),mcp:profile.mcp,profile})
