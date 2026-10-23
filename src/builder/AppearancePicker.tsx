@@ -1,0 +1,2 @@
+import {useAppearance,type Appearance} from './appearance'
+export function AppearancePicker(){const {preference,resolved,setAppearance}=useAppearance();return <label className="appearance-picker"><span aria-hidden="true">{resolved==='dark'?'☾':'☼'}</span><select aria-label="App appearance" value={preference} onChange={e=>setAppearance(e.target.value as Appearance)}><option value="system">System</option><option value="light">Light</option><option value="dark">Dark</option></select></label>}

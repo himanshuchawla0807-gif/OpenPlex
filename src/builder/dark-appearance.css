@@ -1,0 +1,381 @@
+/* Generated semantic dark palette. Regenerate with scripts/build-dark-palette.py. */
+:root[data-appearance=dark] .builder{color:var(--b-ink);background:var(--b-paper)}
+:root[data-appearance=dark] .builder button{color:inherit}
+:root[data-appearance=dark] .builder button:focus-visible,:root[data-appearance=dark] .builder input:focus-visible{outline:2px solid #c6a4c2}
+:root[data-appearance=dark] .builder-header{border-bottom:1px solid var(--b-line);background:var(--b-paper)}
+:root[data-appearance=dark] .builder-wordmark{border:0;background:none}
+:root[data-appearance=dark] .builder-mark{border:1px solid var(--b-ink)}
+:root[data-appearance=dark] .builder-wordmark-dot{color:#c3b1c0}
+:root[data-appearance=dark] .builder-header-divider{background:var(--b-line)}
+:root[data-appearance=dark] .builder-breadcrumb{background:none;border:0;color:var(--b-muted)!important}
+:root[data-appearance=dark] .builder-breadcrumb-slash{color:#c3b1c0}
+:root[data-appearance=dark] .builder-save-state{color:var(--b-muted)}
+:root[data-appearance=dark] .builder-eyebrow{color:#c3b1c0}
+:root[data-appearance=dark] .builder-home-title p{color:var(--b-muted)}
+:root[data-appearance=dark] .builder-primary{background:var(--b-purple);border:1px solid var(--b-purple);color:#fff4e6!important}
+:root[data-appearance=dark] .builder-primary:hover:not(:disabled){background:#705572}
+:root[data-appearance=dark] .builder-section-heading>span{color:var(--b-muted)}
+:root[data-appearance=dark] .builder-project-card{border:1px solid var(--b-line);background:#24222a}
+:root[data-appearance=dark] .builder-project-card:hover{border-color:#514550}
+:root[data-appearance=dark] .builder-project-art{background:#24222a;background-image:radial-gradient(#70557225 .7px,transparent .7px)}
+:root[data-appearance=dark] .builder-project-art.palette-1{background-color:#24222a}
+:root[data-appearance=dark] .builder-project-art.palette-2{background-color:#24222a}
+:root[data-appearance=dark] .builder-project-art.palette-3{background-color:#24222a}
+:root[data-appearance=dark] .builder-project-mini>span:not(.builder-empty-art){background:#24222a;border:1px solid #514550}
+:root[data-appearance=dark] .builder-empty-art{color:#c3b1c0}
+:root[data-appearance=dark] .builder-project-info p{color:var(--b-muted)}
+:root[data-appearance=dark] .builder-new-card{border:1px dashed #514550;background:transparent}
+:root[data-appearance=dark] .builder-new-card>span{border:1px solid #514550}
+:root[data-appearance=dark] .builder-new-card small{color:var(--b-muted)}
+:root[data-appearance=dark] .builder-new-card:hover{background:#24222a4d}
+:root[data-appearance=dark] .builder-home-note{color:var(--b-muted)}
+:root[data-appearance=dark] .builder-home-note>span{color:#c3b1c0}
+:root[data-appearance=dark] .builder-sidebar{border-right:1px solid var(--b-line);background:#24222a}
+:root[data-appearance=dark] .builder-project-caption p{color:var(--b-muted)}
+:root[data-appearance=dark] .builder-tabs{border-top:1px solid var(--b-line);border-bottom:1px solid var(--b-line)}
+:root[data-appearance=dark] .builder-tabs button{background:none;border:0;border-bottom:2px solid transparent}
+:root[data-appearance=dark] .builder-panel-heading p{color:var(--b-muted)}
+:root[data-appearance=dark] .builder-room-card{border:1px solid transparent;background:none}
+:root[data-appearance=dark] .builder-room-card:hover{border-color:var(--b-line);background:#24222a}
+:root[data-appearance=dark] .builder-room-card small{color:var(--b-muted)}
+:root[data-appearance=dark] .builder-sidebar-footer{border-top:1px solid var(--b-line)}
+:root[data-appearance=dark] .builder-layout-toggle small{color:var(--b-muted)}
+:root[data-appearance=dark] .builder-canvas-section{background:#24222a}
+:root[data-appearance=dark] .builder-canvas-label{color:#c3b1c0}
+:root[data-appearance=dark] .builder-status-dot{background:#493b4b}
+:root[data-appearance=dark] .builder-empty-glyph{color:#c3b1c0}
+:root[data-appearance=dark] .builder-empty-canvas p{color:var(--b-muted)}
+:root[data-appearance=dark] .builder-empty-canvas button{border:1px solid #514550;background:#24222a}
+:root[data-appearance=dark] .builder-canvas-controls{background:#24222acc;border:1px solid #514550}
+:root[data-appearance=dark] .builder-canvas-controls button{border:0;background:transparent}
+:root[data-appearance=dark] .builder-canvas-controls button:hover{background:#302b3640}
+:root[data-appearance=dark] .builder-canvas-controls>span{background:var(--b-line)}
+:root[data-appearance=dark] .builder-canvas-controls small{color:var(--b-muted)}
+:root[data-appearance=dark] .builder-canvas-hint{color:#c3b1c0}
+:root[data-appearance=dark] .builder-room-inspector{background:#24222aed;border:1px solid #514550}
+:root[data-appearance=dark] .builder-room-inspector p{color:var(--b-muted)}
+:root[data-appearance=dark] .builder-inspector-close{border:0;background:none;color:#c3b1c0!important}
+:root[data-appearance=dark] .builder-assigned-list{border-top:1px solid var(--b-line)}
+:root[data-appearance=dark] .builder-assigned-list button{border:0;background:none;color:#c3b1c0}
+:root[data-appearance=dark] .builder-remove-room{border:0;border-bottom:1px solid #514550;background:none;color:#c3b1c0!important}
+:root[data-appearance=dark] .builder-search{border:1px solid var(--b-line);color:#c3b1c0}
+:root[data-appearance=dark] .builder-search input{border:0;background:none;outline:none!important;color:var(--b-ink)}
+:root[data-appearance=dark] .builder-person-card{background:none;border:1px solid transparent}
+:root[data-appearance=dark] .builder-person-card:hover:not(:disabled){background:#24222a;border-color:var(--b-line)}
+:root[data-appearance=dark] .builder-person-card small{color:var(--b-muted)}
+:root[data-appearance=dark] .builder-modal-backdrop{background:#7055724a}
+:root[data-appearance=dark] .builder-create-modal{background:#24222a;border:1px solid #514550}
+:root[data-appearance=dark] .builder-create-modal>label input{border:1px solid #514550;background:#24222a;color:var(--b-ink)}
+:root[data-appearance=dark] .builder-create-modal fieldset{border:0}
+:root[data-appearance=dark] .builder-create-modal fieldset label{border:1px solid var(--b-line)}
+:root[data-appearance=dark] .builder-create-modal fieldset label.selected{border-color:#80667e;background:#24222a4d}
+:root[data-appearance=dark] .builder-create-modal fieldset small{color:var(--b-muted)}
+:root[data-appearance=dark] .builder-local-note{color:var(--b-muted)}
+:root[data-appearance=dark] .builder *::-webkit-scrollbar-thumb{background:#302b36}
+:root[data-appearance=dark] .room-hover-add{background:#705572;color:#fff4e6;border:2px solid #514550}
+:root[data-appearance=dark] .builder-garden-welcome{border:1px solid #514550;background:#24222a}
+:root[data-appearance=dark] .builder-garden-welcome::before{background:url('/illustrations/openplex-garden.png') center 55%/cover no-repeat}
+:root[data-appearance=dark] .builder-garden-welcome::after{background:linear-gradient(90deg,#24222a 0%,#24222af5 24%,#24222aa6 47%,#24222a00 72%)}
+:root[data-appearance=dark] .builder-garden-welcome p{color:#c3b1c0}
+:root[data-appearance=dark] .builder-garden-caption{color:#eee5ec;background:#24222ac9}
+:root[data-appearance=dark] .builder-garden-welcome .builder-eyebrow{color:#eee5ec}
+:root[data-appearance=dark] .builder-garden-welcome::after{background:linear-gradient(90deg,#24222af5,#24222ad9 60%,#24222a50)}
+:root[data-appearance=dark] .builder-garden-caption.glass-caption{background:none;border:0;color:#fff4e6}
+:root[data-appearance=dark] .builder-garden-caption.glass-caption:not([data-glass=webgl2]){background:#705572bb}
+:root[data-appearance=dark] .builder-editable-title>button{border:1px solid transparent;background:transparent;color:var(--b-muted)}
+:root[data-appearance=dark] .builder-editable-title>button:hover{background:#24222a;border-color:#514550}
+:root[data-appearance=dark] .builder-rename-actions>button:not(.builder-primary){background:none;border:0;color:var(--b-muted)}
+:root[data-appearance=dark] .builder-custom-employee{border:1px dashed #514550;background:transparent}
+:root[data-appearance=dark] .employee-desk{border:1px solid #514550;background:#24222a}
+:root[data-appearance=dark] .employee-desk-header{border-bottom:1px solid var(--b-line)}
+:root[data-appearance=dark] .employee-desk-header p{color:var(--b-muted)}
+:root[data-appearance=dark] .employee-identity{border-right:1px solid var(--b-line);background:linear-gradient(#24222a,#24222a)}
+:root[data-appearance=dark] .employee-identity>small{color:#c3b1c0}
+:root[data-appearance=dark] .employee-specialties span{background:#24222ab3;border:1px solid #514550}
+:root[data-appearance=dark] .employee-tabs{border-bottom:1px solid var(--b-line)}
+:root[data-appearance=dark] .employee-tabs button{background:none;border:0}
+:root[data-appearance=dark] .employee-tabs button[aria-pressed=true]{background:#24222a;color:#eee5ec}
+:root[data-appearance=dark] .employee-muted{color:#c3b1c0}
+:root[data-appearance=dark] .employee-content input:not([type=checkbox]),:root[data-appearance=dark] .employee-content textarea,:root[data-appearance=dark] .employee-content select{border:1px solid #514550;background:#24222a;color:#eee5ec}
+:root[data-appearance=dark] .employee-desk-footer{border-top:1px solid var(--b-line)}
+:root[data-appearance=dark] .employee-desk-footer>span{color:var(--b-muted)}
+:root[data-appearance=dark] .employee-error{color:#eee5ec;background:#24222a}
+:root[data-appearance=dark] .employee-files-toolbar button,:root[data-appearance=dark] .employee-folder button,:root[data-appearance=dark] .employee-work-heading>button{border:1px solid #514550;background:#24222a}
+:root[data-appearance=dark] .employee-remove-file{border:0;background:none;color:#c3b1c0!important}
+:root[data-appearance=dark] .employee-folder{background:#24222a}
+:root[data-appearance=dark] .employee-transcript{background:#24222a;border:1px solid #514550}
+:root[data-appearance=dark] .employee-transcript article{background:#24222a}
+:root[data-appearance=dark] .employee-transcript .message-user{background:#24222a}
+:root[data-appearance=dark] .employee-transcript small{color:#c3b1c0}
+:root[data-appearance=dark] .employee-transcript .message-event{background:transparent}
+:root[data-appearance=dark] .employee-transcript .message-event pre{color:#c3b1c0}
+:root[data-appearance=dark] .employee-session-empty{color:#c3b1c0}
+:root[data-appearance=dark] .employee-permissions{color:#c3b1c0}
+:root[data-appearance=dark] .builder-assigned-list .builder-configure-person{background:none;border:0}
+:root[data-appearance=dark] .builder-configure-person small{color:#c3b1c0}
+:root[data-appearance=dark] .builder-office-context{color:#c3b1c0;border-top:1px solid var(--b-line)}
+:root[data-appearance=dark] .builder-office-context summary{color:var(--b-ink)}
+:root[data-appearance=dark] .builder-office-context textarea{border:1px solid #514550;background:#24222a;color:var(--b-ink)}
+:root[data-appearance=dark] .builder-session-error{background:#24222a;color:#eee5ec}
+:root[data-appearance=dark] .builder-garden-caption{background:none;border:0;color:#fff4e6}
+:root[data-appearance=dark] .builder-agent-status{background:#24222a;border:1px solid #514550}
+:root[data-appearance=dark] .builder-style-choice{color:var(--b-muted)}
+:root[data-appearance=dark] .builder-style-choice select,:root[data-appearance=dark] .builder-create-modal select{border:1px solid var(--b-line);color:var(--b-ink);background:#24222a}
+:root[data-appearance=dark] .employee-files-toolbar .employee-import{border:1px solid #514550;background:#24222a}
+:root[data-appearance=dark] .employee-import:focus-within{outline:2px solid #c6a4c2}
+:root[data-appearance=dark] .builder-canvas-section{background-color:#24222a;background-image:radial-gradient(circle,rgba(96,75,97,.23) .8px,transparent 1.15px)}
+:root[data-appearance=dark] .builder button:focus-visible,:root[data-appearance=dark] .builder select:focus-visible,:root[data-appearance=dark] .builder input:focus-visible,:root[data-appearance=dark] .builder textarea:focus-visible,:root[data-appearance=dark] .builder summary:focus-visible{outline:2px solid #c6a4c2}
+:root[data-appearance=dark] .builder-search:focus-within{outline:2px solid #c6a4c2}
+:root[data-appearance=dark] .builder-catalog-empty{color:var(--b-muted)}
+:root[data-appearance=dark] .builder-assigned-list .builder-configure-person{color:var(--b-ink)}
+:root[data-appearance=dark] .builder-header .builder-team-workspace{border:1px solid #514550;background:#24222a;color:#c3b1c0}
+:root[data-appearance=dark] .builder-header .builder-team-workspace[aria-pressed=true]{background:#24222a;border-color:#514550}
+:root[data-appearance=dark] .character-picker{background:#24222a;color:#eee5ec}
+:root[data-appearance=dark] .character-picker>header{border-bottom:1px solid #514550}
+:root[data-appearance=dark] .character-picker>header button{border:0;background:none;color:#c3b1c0}
+:root[data-appearance=dark] .character-picker>header>span:last-child{color:#c3b1c0}
+:root[data-appearance=dark] .character-picker-layout>aside p{color:#c3b1c0}
+:root[data-appearance=dark] .character-picker-heading label{background:#24222a;border:1px solid #514550}
+:root[data-appearance=dark] .character-picker-heading input{border:0;background:none;outline:0;color:#eee5ec}
+:root[data-appearance=dark] .character-picker-grid>button{background:#24222a;border:1px solid #514550;color:#eee5ec}
+:root[data-appearance=dark] .character-picker-grid>button:hover:enabled,:root[data-appearance=dark] .character-picker-grid>button:focus-visible{background:#24222a;border-color:#514550;outline:0}
+:root[data-appearance=dark] .character-picker-grid .campus-preview-thumb{background:none}
+:root[data-appearance=dark] .character-picker-grid small{color:#c3b1c0}
+:root[data-appearance=dark] .character-picker-grid>button>span{color:#c3b1c0}
+:root[data-appearance=dark] .employee-builder-page{background:#24222a}
+:root[data-appearance=dark] .employee-builder-page>header{border-bottom:1px solid #514550}
+:root[data-appearance=dark] .employee-builder-page>header>button:first-child{border:0;background:none;color:#c3b1c0}
+:root[data-appearance=dark] .employee-builder-layout>aside h1{color:#eee5ec}
+:root[data-appearance=dark] .employee-builder-layout>aside p{color:#c3b1c0}
+:root[data-appearance=dark] .employee-builder-layout>aside>div:last-child{color:#c3b1c0;border-top:1px solid #514550}
+:root[data-appearance=dark] .employee-builder-layout>aside>div:last-child span{color:#c3b1c0}
+:root[data-appearance=dark] .employee-builder-conversation{background:#24222a;border:1px solid #514550}
+:root[data-appearance=dark] .employee-builder-conversation h3{color:#eee5ec}
+:root[data-appearance=dark] .employee-builder-conversation label{color:#c3b1c0}
+:root[data-appearance=dark] .employee-builder-conversation textarea{background:#24222a;border:1px solid #514550;color:#eee5ec}
+:root[data-appearance=dark] .builder-chat-employee{border:1px solid #514550;background:#24222a;color:#eee5ec}
+:root[data-appearance=dark] .employee-hire-actions>button:not(.builder-primary){border:1px solid #514550;color:#c3b1c0;background:#24222a}
+:root[data-appearance=dark] .builder-chat-heading{border-bottom:1px solid #514550;background:linear-gradient(105deg,#24222add,#24222a99),url('/illustrations/openplex-garden.png') center/cover}
+:root[data-appearance=dark] .builder-chat-heading>p{color:#c3b1c0}
+:root[data-appearance=dark] .builder-chat-welcome>span{color:#c3b1c0}
+:root[data-appearance=dark] .builder-chat-welcome h4{color:#eee5ec}
+:root[data-appearance=dark] .builder-chat-welcome p{color:#c3b1c0}
+:root[data-appearance=dark] .builder-chat button{border:1px solid #514550;background:#24222a;color:#eee5ec}
+:root[data-appearance=dark] .builder-chat button:hover:enabled{background:#24222a}
+:root[data-appearance=dark] .builder-chat .builder-chat-composer{background:#24222a;border:1px solid #514550}
+:root[data-appearance=dark] .builder-chat-composer:focus-within{border-color:#514550}
+:root[data-appearance=dark] .employee-builder-conversation .builder-chat-composer textarea{background:none;border:0;outline:none;color:#eee5ec}
+:root[data-appearance=dark] .employee-builder-conversation .builder-chat-composer textarea:focus-visible{outline:none}
+:root[data-appearance=dark] .builder-chat-toolbar select{border:0;background:transparent;color:#c3b1c0}
+:root[data-appearance=dark] .builder-chat .builder-chat-attach{border:0;background:none}
+:root[data-appearance=dark] .builder-chat .builder-chat-send{background:#705572;color:#fff4e6}
+:root[data-appearance=dark] .builder-chat-tools>span{color:#c3b1c0}
+:root[data-appearance=dark] .builder-chat-status{color:#c3b1c0}
+:root[data-appearance=dark] .builder-chat-status [role=alert]{color:#c3b1c0}
+:root[data-appearance=dark] .employee-builder-layout>aside .builder-change-character{border:1px solid #514550;color:#c3b1c0;background:#24222a}
+:root[data-appearance=dark] .builder-back-hiring{border:0;background:none;color:#c3b1c0}
+:root[data-appearance=dark] .builder-chat-state{color:#c3b1c0}
+:root[data-appearance=dark] .builder-chat button.builder-review-employee{background:#705572;color:#fff4e6;border-color:#80667e}
+:root[data-appearance=dark] .builder-connection-details summary{color:#c3b1c0}
+:root[data-appearance=dark] .builder-connection-details>div{background:#24222a;border:1px solid #514550;color:#c3b1c0}
+:root[data-appearance=dark] .builder-connection-details>div strong{color:#eee5ec}
+:root[data-appearance=dark] .builder-attachment-hint{color:#c3b1c0}
+:root[data-appearance=dark] .builder-chat .builder-mobile-back{border:0;background:none}
+:root[data-appearance=dark] .workspace-location-path{color:var(--b-muted,#c3b1c0)}
+:root[data-appearance=dark] .workspace-location select{border:1px solid var(--b-line,#514550);background:transparent;color:inherit}
+:root[data-appearance=dark] .portrait-fallback{color:#c3b1c0;background:#24222a}
+:root[data-appearance=dark] .employee-session-workspace{background:#24222a;color:#eee5ec}
+:root[data-appearance=dark] .session-workspace-toolbar h1 span{color:#c3b1c0}
+:root[data-appearance=dark] .employee-session-workspace button{border:1px solid #514550;background:#24222a;color:#eee5ec}
+:root[data-appearance=dark] .session-workspace-toolbar button.session-office-back{border:0;background:none}
+:root[data-appearance=dark] .session-view-toggle{background:#24222a}
+:root[data-appearance=dark] .session-view-toggle button{border:0;background:none}
+:root[data-appearance=dark] .session-view-toggle button[aria-pressed=true]{background:#24222a;color:#eee5ec}
+:root[data-appearance=dark] .session-search{background:#24222a;border:1px solid #514550;color:#c3b1c0}
+:root[data-appearance=dark] .session-search input{border:0;outline:0;background:none;color:#eee5ec}
+:root[data-appearance=dark] .session-workspace-toolbar select{border:0;background:none;color:#c3b1c0}
+:root[data-appearance=dark] .employee-session-workspace .session-new-space{background:#705572;color:#fff4e6;border-color:#80667e}
+:root[data-appearance=dark] .session-space-tabs button{border-color:transparent;background:none}
+:root[data-appearance=dark] .session-space-tabs button[aria-pressed=true]{background:#24222a;border-color:#514550;color:#eee5ec}
+:root[data-appearance=dark] .session-space-tabs button span{color:#c3b1c0}
+:root[data-appearance=dark] .session-space-tabs .session-edit-space{color:#c3b1c0}
+:root[data-appearance=dark] .session-grid-card{border:1px solid #514550;background:#24222a}
+:root[data-appearance=dark] .harness-embedded .harness-panel{border:0}
+:root[data-appearance=dark] .harness-tile-header{background:radial-gradient(ellipse at 50% 15%,#302b3688,transparent 62%),linear-gradient(90deg,#24222a,#24222a);border-bottom:1px solid #514550}
+:root[data-appearance=dark] .harness-tile-provider{color:#c3b1c0}
+:root[data-appearance=dark] .harness-tile-provider .harness-logo{background:none}
+:root[data-appearance=dark] .harness-tile-identity h3{color:#eee5ec}
+:root[data-appearance=dark] .harness-tile-identity>small{color:#c3b1c0}
+:root[data-appearance=dark] .employee-session-workspace button.harness-tile-expand{border:0;background:none;color:#c3b1c0}
+:root[data-appearance=dark] .harness-embedded .harness-chat-intro p{color:#c3b1c0}
+:root[data-appearance=dark] .harness-task-output{color:#eee5ec}
+:root[data-appearance=dark] .session-pagination{color:#c3b1c0}
+:root[data-appearance=dark] .session-pagination button{border:0;background:none}
+:root[data-appearance=dark] .session-pagination button[aria-current=page]{background:#24222a;color:#eee5ec}
+:root[data-appearance=dark] .session-empty h2{color:#eee5ec}
+:root[data-appearance=dark] .session-empty p{color:#c3b1c0}
+:root[data-appearance=dark] .session-space-backdrop{background:#7055724d}
+:root[data-appearance=dark] .session-space-picker{background:#24222a;border:1px solid #514550;color:#eee5ec}
+:root[data-appearance=dark] .session-space-picker p{color:#c3b1c0}
+:root[data-appearance=dark] .session-space-picker>header>button{border:0;background:none}
+:root[data-appearance=dark] .session-space-picker>label{color:#c3b1c0}
+:root[data-appearance=dark] .session-space-picker>label>input{border:1px solid #514550;background:#24222a;color:#eee5ec}
+:root[data-appearance=dark] .session-catalog-controls>span{color:#c3b1c0}
+:root[data-appearance=dark] .session-horizontal-catalog>button{background:#24222a}
+:root[data-appearance=dark] .session-horizontal-catalog>button[aria-pressed=true]{border-color:#514550;background:#24222a}
+:root[data-appearance=dark] .session-horizontal-catalog small{color:#c3b1c0}
+:root[data-appearance=dark] .session-horizontal-catalog button>span:last-child{color:#c3b1c0}
+:root[data-appearance=dark] .session-space-picker>footer{color:#c3b1c0}
+:root[data-appearance=dark] .session-space-picker button.session-build-space{background:#705572;color:#fff4e6;border-color:#80667e}
+:root[data-appearance=dark] .session-save-error{color:#c3b1c0}
+:root[data-appearance=dark] .harness-identity>.character-portrait img{border:0}
+:root[data-appearance=dark] .session-divider{outline:0}
+:root[data-appearance=dark] .session-divider::after{background:#493b4b66}
+:root[data-appearance=dark] .harness-tile-header,:root[data-appearance=dark] .session-grid-card.is-expanded .harness-tile-header{border-bottom:0;background:radial-gradient(ellipse at 50% 0%,#302b368c,transparent 75%)}
+:root[data-appearance=dark] .harness-embedded .harness-main footer{border-top:0;background:linear-gradient(0deg,#24222aaa,transparent)}
+:root[data-appearance=dark] .harness-terminal-mode .harness-screen{border:0;background:#24222a}
+:root[data-appearance=dark] .terminal-connect-row{color:#c3b1c0}
+:root[data-appearance=dark] .harness-terminal-mode .harness-task-output{background:#24222a}
+:root[data-appearance=dark] .harness-terminal-mode .xterm-viewport{background-color:#24222a!important}
+:root[data-appearance=dark] .session-workspace-toolbar .workspace-office-scope{color:#c3b1c0}
+:root[data-appearance=dark] .harness-identity>.character-portrait{background:none}
+:root[data-appearance=dark] .harness-diagnostics>button{border:0!important;background:none!important;color:#c3b1c0!important}
+:root[data-appearance=dark] .harness-diagnostics>section{background:#24222a;border:1px solid #514550}
+:root[data-appearance=dark] .harness-diagnostics pre{color:#c3b1c0}
+:root[data-appearance=dark] .builder-team-workspace{background:#705572!important;color:#fff4e6!important;border-color:#80667e!important}
+:root[data-appearance=dark] .harness-terminal-mode{background:linear-gradient(#24222abb,#24222abb),url('/illustrations/terminal-paper-study.png') right bottom/cover}
+:root[data-appearance=dark] .harness-terminal-mode .harness-screen,:root[data-appearance=dark] .harness-terminal-mode .xterm-viewport{background:transparent!important}
+:root[data-appearance=dark] .harness-terminal-mode .xterm{background:transparent}
+:root[data-appearance=dark] .harness-terminal-mode .harness-tile-header{background:linear-gradient(#24222abb,transparent)}
+:root[data-appearance=dark] .harness-terminal-mode{background:linear-gradient(#24222abb,#24222abb),url('/illustrations/terminal-paper-study.png') right bottom/cover}
+:root[data-appearance=dark] .employee-work-state{background:#24222a;color:#eee5ec}
+:root[data-appearance=dark] .employee-work-state.state-running{background:#24222a;color:#eee5ec}
+:root[data-appearance=dark] .employee-work-state.state-attention{background:#24222a;color:#eee5ec}
+:root[data-appearance=dark] .employee-work-metrics>div{border:1px solid #514550}
+:root[data-appearance=dark] .employee-work-metrics span{color:#c3b1c0}
+:root[data-appearance=dark] .employee-work-card{border-top:1px solid #514550}
+:root[data-appearance=dark] .employee-schedule-list li{background:#24222a}
+:root[data-appearance=dark] .employee-schedule-list li>div{color:#c3b1c0}
+:root[data-appearance=dark] .employee-harness-options label{border:1px solid #514550}
+:root[data-appearance=dark] .employee-harness-options small{color:#c3b1c0}
+:root[data-appearance=dark] .employee-work-overview button:not(.builder-primary){border:1px solid #514550;background:#24222a;color:#eee5ec}
+:root[data-appearance=dark] .employee-work-overview button:focus-visible{outline:2px solid #c6a4c2}
+:root[data-appearance=dark] .employee-harness-grid>label{border:1px solid #514550;background:#24222a}
+:root[data-appearance=dark] .employee-harness-grid>label.selected{border-color:#80667e;background:#24222a66}
+:root[data-appearance=dark] .employee-harness-grid strong small{color:#c3b1c0}
+:root[data-appearance=dark] .employee-harness-grid label>span:not(.harness-logo),:root[data-appearance=dark] .employee-harness-grid code{color:#c3b1c0}
+:root[data-appearance=dark] .harness-logo{background:#24222a;color:#eee5ec}
+:root[data-appearance=dark] .agent-builder>p,:root[data-appearance=dark] .agent-builder-pending p{color:#c3b1c0}
+:root[data-appearance=dark] .agent-builder-pending{background:#24222a;border:1px solid #514550}
+:root[data-appearance=dark] .agent-builder details button{border:1px solid #514550;background:#24222a;color:#eee5ec}
+:root[data-appearance=dark] .employee-content .employee-harness-grid>label>code{color:#c3b1c0}
+:root[data-appearance=dark] .employee-ready{color:#c3b1c0}
+:root[data-appearance=dark] .employee-ready small{color:#c3b1c0}
+:root[data-appearance=dark] .harness-panel{background:#24222a;border:1px solid #514550;color:#eee5ec}
+:root[data-appearance=dark] .harness-sidebar{background:#24222a;border-right:1px solid #514550}
+:root[data-appearance=dark] .harness-panel button{border:1px solid #514550;background:#24222a;color:#eee5ec}
+:root[data-appearance=dark] .harness-panel button:focus-visible{outline:2px solid #c6a4c2}
+:root[data-appearance=dark] .harness-back{background:none!important;border:0!important}
+:root[data-appearance=dark] .harness-identity>span{background:#302b36;color:#eee5ec}
+:root[data-appearance=dark] .harness-identity p{color:#c3b1c0}
+:root[data-appearance=dark] .harness-provider{border-top:1px solid #514550}
+:root[data-appearance=dark] .harness-provider small{color:#c3b1c0}
+:root[data-appearance=dark] .harness-sidebar nav button{border-color:transparent;background:none}
+:root[data-appearance=dark] .harness-sidebar nav button[aria-pressed=true]{background:#302b36;color:#eee5ec}
+:root[data-appearance=dark] .harness-preparation{border-top:1px solid #514550}
+:root[data-appearance=dark] .harness-preparation p{color:#c3b1c0}
+:root[data-appearance=dark] .harness-preparation>small{color:#c3b1c0}
+:root[data-appearance=dark] .harness-folder small{color:#c3b1c0}
+:root[data-appearance=dark] .harness-folder p{color:#c3b1c0}
+:root[data-appearance=dark] .harness-hero{background:linear-gradient(90deg,#24222a 28%,#24222acc 58%,#24222a11),url('/illustrations/openplex-garden.png') center right/cover;border-bottom:1px solid #514550}
+:root[data-appearance=dark] .harness-hero h1{color:#eee5ec}
+:root[data-appearance=dark] .harness-hero p{color:#c3b1c0}
+:root[data-appearance=dark] .harness-session-bar{border-bottom:1px solid #514550}
+:root[data-appearance=dark] .harness-session-bar i{background:#302b36}
+:root[data-appearance=dark] .harness-session-bar i.online{background:#493b4b}
+:root[data-appearance=dark] .harness-session-bar>small{color:#c3b1c0}
+:root[data-appearance=dark] .harness-chat-intro>span{color:#c3b1c0}
+:root[data-appearance=dark] .harness-chat-intro p{color:#c3b1c0}
+:root[data-appearance=dark] .harness-user-message{background:#24222a}
+:root[data-appearance=dark] .harness-chat article small{color:#c3b1c0}
+:root[data-appearance=dark] .harness-agent-output pre{color:#eee5ec}
+:root[data-appearance=dark] .harness-main footer{border-top:1px solid #514550;background:#24222a}
+:root[data-appearance=dark] .harness-main form{background:#24222a;border:1px solid #514550}
+:root[data-appearance=dark] .harness-main textarea{border:0;background:none;color:#eee5ec;outline:0}
+:root[data-appearance=dark] .harness-main form button{background:#705572;color:#fff4e6;border-color:#80667e}
+:root[data-appearance=dark] .harness-controls label{color:#c3b1c0}
+:root[data-appearance=dark] .harness-main footer>small{color:#c3b1c0}
+:root[data-appearance=dark] .harness-error{color:#c3b1c0}
+:root[data-appearance=dark] .employee-choice{background:#24222a;border:1px solid #514550;color:#eee5ec}
+:root[data-appearance=dark] .employee-choice>p{color:#c3b1c0}
+:root[data-appearance=dark] .employee-choice>button{border:1px solid #514550;background:#24222a;color:inherit}
+:root[data-appearance=dark] .employee-choice>button.employee-choice-close{border:0;background:none;color:#c3b1c0}
+:root[data-appearance=dark] .employee-choice button:hover{background:#24222a}
+:root[data-appearance=dark] .harness-main footer{background:linear-gradient(0deg,#24222a,#24222a)}
+:root[data-appearance=dark] .harness-main form.harness-composer{background:#24222a;border:1px solid #514550}
+:root[data-appearance=dark] .harness-main form.harness-composer:focus-within{border-color:#514550}
+:root[data-appearance=dark] .harness-main .harness-composer textarea{border:0;color:#eee5ec;background:none}
+:root[data-appearance=dark] .harness-main .harness-composer textarea::placeholder{color:#c3b1c0}
+:root[data-appearance=dark] .harness-main form .harness-attach{border:0;background:none;color:#c3b1c0}
+:root[data-appearance=dark] .harness-main form .harness-attach:hover{background:#24222a}
+:root[data-appearance=dark] .harness-composer-provider{color:#c3b1c0}
+:root[data-appearance=dark] .harness-composer-provider .harness-logo{background:none}
+:root[data-appearance=dark] .harness-composer-hint{color:#c3b1c0}
+:root[data-appearance=dark] .harness-main form .harness-send{border:0;background:#705572;color:#fff4e6}
+:root[data-appearance=dark] .harness-main form .harness-send:disabled{background:#24222a;color:#c3b1c0}
+:root[data-appearance=dark] .harness-environment-note{color:#c3b1c0}
+:root[data-appearance=dark] .harness-connection-error{color:#c3b1c0}
+:root[data-appearance=dark] .harness-main form .harness-attachments button{color:#c3b1c0;background:#24222a;border:1px solid #514550}
+:root[data-appearance=dark] .harness-chat{background:#24222a}
+:root[data-appearance=dark] .harness-chat article small,:root[data-appearance=dark] .builder-chat article small{color:#c3b1c0}
+:root[data-appearance=dark] .harness-user-message{background:#24222a;border:1px solid #514550}
+:root[data-appearance=dark] .chat-prose{color:#eee5ec}
+:root[data-appearance=dark] .harness-chat article .chat-prose p,:root[data-appearance=dark] .builder-chat article .chat-prose p{color:inherit}
+:root[data-appearance=dark] .chat-prose code{background:#24222a}
+:root[data-appearance=dark] .chat-prose pre{background:#24222a;border:1px solid #514550}
+:root[data-appearance=dark] .chat-prose pre code{background:none}
+:root[data-appearance=dark] .harness-activity{color:#c3b1c0;border-top:1px solid #514550}
+:root[data-appearance=dark] .harness-activity pre{color:#c3b1c0}
+:root[data-appearance=dark] .chat-thinking{color:#c3b1c0}
+:root[data-appearance=dark] .chat-thinking>span{background:#493b4b}
+:root[data-appearance=dark] .harness-main .harness-composer textarea:focus-visible{outline:none}
+:root[data-appearance=dark] .harness-screen{border:1px solid #514550;background:#24222a}
+:root[data-appearance=dark] .harness-screen.harness-hidden{border:0}
+:root[data-appearance=dark] .harness-scenery{background:#24222a}
+
+:root[data-appearance=dark]{color-scheme:dark;background:#1b191f;color:#eee5ec}
+:root[data-appearance=dark] body{background:#1b191f}
+:root[data-appearance=dark] .builder{--b-ink:#eee5ec;--b-muted:#b6a8b3;--b-line:#493e49;--b-paper:#201e25;--b-purple:#987799;background:#201e25}
+:root[data-appearance=dark] :is(input,textarea,select){color:#eee5ec;background-color:#24222a;border-color:#514550}
+:root[data-appearance=dark] :is(.builder-primary,.session-new-space,.builder-team-workspace){background:#856388!important;color:#fff6ed!important;border-color:#a582a5!important}
+:root[data-appearance=dark] .harness-logo{background:#f1e8de;border-radius:8px}
+:root[data-appearance=dark] .harness-terminal-mode{background:#24222a}
+:root[data-appearance=dark] :is(.harness-hero,.builder-chat-heading){background:linear-gradient(90deg,#302731,#24222a)}
+:root[data-appearance=dark] .builder-garden-welcome::before{background:url('/illustrations/openplex-garden.png') center 55%/cover no-repeat;opacity:1}
+:root[data-appearance=dark] :is(.harness-sidebar,.employee-identity,.builder-sidebar){background-color:#28242d}
+:root[data-appearance=dark] .harness-tile-header{background:linear-gradient(180deg,#65476366,transparent 95%)}
+:root[data-appearance=dark] .employee-identity{background:linear-gradient(180deg,#453448 0%,#342b38 36%,#28242d 72%)}
+:root[data-appearance=dark] .harness-user-message{background:#443247;border-color:#685069;color:#f6edf3}
+:root[data-appearance=dark] :is(.employee-muted,.harness-muted,.builder-eyebrow){color:#bdadba}
+:root[data-appearance=dark] :is(.chat-thinking,.harness-assistant-message){color:#eee5ec}
+.employee-identity{background:linear-gradient(180deg,#e8e0e9 0%,#f0e9e7 40%,#f8f4eb 76%)}
+.employee-identity .campus-preview-portrait{background:none;border-radius:0}
+:root[data-appearance=dark] .employee-identity .campus-preview-portrait{background:none}
+.harness-hero,.builder-chat-heading{background:linear-gradient(90deg,#f1e9ef,#fbf8f0)}
+.harness-terminal-mode{background:#fbf8f0}
+/* Match adjoining surfaces, with fades contained inside the header. */
+.employee-builder-page .employee-builder-layout>aside{background:transparent}
+.employee-builder-page .employee-builder-conversation{border:0;box-shadow:none}
+:root[data-appearance=dark] .employee-builder-conversation{border:0;box-shadow:none}
+.employee-builder-conversation .builder-chat-heading{border-bottom:0;background:linear-gradient(180deg,#f1e9ef 0%,#fbf8f0 100%)}
+:root[data-appearance=dark] .employee-builder-page,:root[data-appearance=dark] .employee-builder-layout,:root[data-appearance=dark] .employee-builder-conversation,:root[data-appearance=dark] .employee-builder-layout>aside{background:#24222a}
+:root[data-appearance=dark] .employee-builder-conversation .builder-chat-heading{background:linear-gradient(180deg,#352b36 0%,#2c262f 48%,#24222a 100%);border-bottom:0}
+:root[data-appearance=dark] .builder-chat-log{background:#24222a}
+:root[data-appearance=dark] .builder-canvas-section{background-image:radial-gradient(circle,rgba(225,213,230,.32) .8px,transparent 1.15px)}
+.appearance-picker{display:inline-flex;align-items:center;gap:5px;flex-shrink:0;color:inherit;font:12px/1.4 system-ui}
+.appearance-picker>span{font-size:18px}.appearance-picker select{font:inherit;color:inherit;background:transparent;border:1px solid var(--b-line,#dacbd4);border-radius:8px;padding:5px 7px;max-width:92px}
+.appearance-picker select:focus-visible{outline:2px solid #a783a8;outline-offset:3px}
+@media(prefers-reduced-motion:reduce){.app-decoration,.botanical{animation:none!important}}
+
+
+[data-appearance="dark"] .builder-canvas-section{background-image:radial-gradient(circle,rgba(233,220,241,.32) .8px,transparent 1.15px)}
