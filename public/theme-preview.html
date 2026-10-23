@@ -1,0 +1,118 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>OpenPlex · Theme study</title>
+<style>
+*{box-sizing:border-box}body{margin:0;background:#e9e7e2;color:#514050;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif}button{font:inherit;cursor:pointer}button:focus-visible{outline:3px solid #729b9e;outline-offset:4px}.review-header{max-width:1320px;margin:24px auto 18px;padding:0 20px;display:flex;align-items:center;justify-content:space-between;gap:24px}.review-header h1{font:normal 24px Georgia,serif;margin:0 0 6px}.review-header p{font-size:12px;color:#7d7773;margin:0}.theme-controls{display:flex;padding:4px;border:1px solid #d0ccc5;border-radius:10px;gap:4px;background:#f6f3ec}.theme-controls button{border:0;border-radius:6px;background:none;color:#7d7773;padding:10px 18px;font-size:12px}.theme-controls button[aria-pressed=true]{background:#fffefa;color:#514050;box-shadow:0 1px 4px #51405018}.window{--paper:#f6f1e4;--ink:#514050;--muted:#8a8178;--line:#e2d9cb;--image:url('/illustrations/openplex-garden.png');max-width:1280px;margin:auto;border:1px solid #cfcac2;border-radius:16px;overflow:hidden;box-shadow:0 24px 80px #29383c1c;background:var(--paper);color:var(--ink)}.window.coast{--paper:#edf5fc;--ink:#204f78;--muted:#526f8b;--line:#d4e4f1;--image:url('/illustrations/openplex-coast.png')}.chrome{height:35px;background:var(--paper);border-bottom:1px solid var(--line);position:relative;text-align:center;font-size:12px;font-weight:600;line-height:35px;color:var(--muted)}.dots{position:absolute;left:16px;top:13px;display:flex;gap:7px}.dots i{width:10px;height:10px;background:#c4b9ad;border-radius:50%}.coast .dots i{background:#accce6}.stage{display:grid;grid-template-columns:1fr 1fr;min-height:710px}.copy{display:flex;flex-direction:column;padding:45px 48px 42px}.brand{font:bold 29px Georgia,serif;display:flex;align-items:center;gap:12px;letter-spacing:-.6px}.brand svg{width:30px;height:34px}.middle{margin:auto 0;padding:60px 0 45px}.counter{font:12px ui-monospace,monospace;letter-spacing:1px;color:var(--muted)}.copy h2{font:normal 43px/1.2 Georgia,serif;letter-spacing:-1.4px;margin:29px 0 24px;max-width:430px}.description{font-size:15px;line-height:1.9;color:var(--muted);max-width:380px;margin:0}.progress{display:flex;gap:5px;margin-top:35px}.progress i{width:7px;height:5px;border-radius:5px;background:var(--line)}.progress i.active{width:28px;background:var(--ink)}.footer{display:flex;justify-content:space-between;align-items:center;gap:14px}.back{border:0;background:none;color:var(--muted);padding:0;font-size:13px}.continue{border:0;background:var(--ink);color:var(--paper);border-radius:9px;padding:16px 24px;font-size:14px;display:flex;align-items:center;gap:28px;margin-left:auto}.art{background-image:var(--image);background-position:center;background-size:cover;position:relative;display:flex;align-items:flex-end;overflow:hidden}.art::before{content:'';position:absolute;inset:0;background:linear-gradient(transparent 50%,#51405073)}.coast .art::before{background:linear-gradient(transparent 50%,#173c53a3)}.art-copy{position:relative;padding:38px;color:#fffaf2}.coast .art-copy{color:#f4f8ff}.coast .brand::after{content:"";width:7px;height:7px;border-radius:50%;background:#d48b9e;margin-left:-6px;margin-top:15px}.coast .progress i.active{background:#c88361}.coast .continue span:last-child{color:#ffd7c9}.art-copy small{font:10px ui-monospace,monospace;letter-spacing:2.4px}.art-copy h3{font:normal 34px/1.2 Georgia,serif;margin:15px 0 0;letter-spacing:-.6px}.diagram{display:none;position:absolute;top:30px;left:28px;right:28px;background:var(--paper);padding:14px 12px 24px;border-radius:20px;text-align:center}.diagram img{width:100%;max-height:410px;display:block}.diagram p{color:var(--ink);font:20px Georgia,serif;margin:6px 0 0}.palette{max-width:1280px;display:flex;align-items:center;justify-content:space-between;gap:20px;margin:17px auto 28px;padding:0 4px;font-size:11px;color:#807a76}.swatches{display:flex;gap:17px}.swatches span{display:flex;align-items:center;gap:6px}.swatches i{display:inline-block;width:14px;height:14px;border-radius:50%;border:1px solid #00000012}.note{font-size:11px}.review-status{font:10px ui-monospace,monospace;color:#637f79;letter-spacing:.7px;margin-left:12px;vertical-align:middle}
+@media(min-width:1600px){.review-header{margin-top:40px}.stage{min-height:760px}}@media(max-width:900px){.review-header{display:block}.theme-controls{display:inline-flex;margin-top:18px}.window{margin:0 18px}.stage{min-height:620px}.copy{padding:30px 25px}.copy h2{font-size:34px}.middle{padding:40px 0}.art-copy{padding:25px}.art-copy h3{font-size:27px}.palette{padding:0 22px;flex-wrap:wrap}}@media(max-width:600px){.stage{grid-template-columns:1fr}.copy{min-height:580px}.art{min-height:360px}.palette{line-height:1.8}.swatches{gap:8px;flex-wrap:wrap}.review-header h1{font-size:22px}.diagram{position:relative;inset:auto;width:90%;margin:20px auto 160px}}
+
+/* A full-image alternative: a shaded reading area, with the coast left open. */
+.window.immersive{--paper:#fff8ef;--ink:#fff8ef;--muted:#e0eaf3;--line:#ffffff42;background-image:var(--image);background-size:cover;background-position:center;border-color:#537489}
+.immersive .chrome{background:#092c4666;border-color:#ffffff24;color:#eef5fa;backdrop-filter:blur(12px)}
+.immersive .dots i{background:#e5edf399}
+.immersive .stage{position:relative;isolation:isolate;min-height:740px;aspect-ratio:1604/946}
+.immersive .stage::before{content:'';position:absolute;inset:0;z-index:-1;background:linear-gradient(90deg,#071f35eb 0%,#0a2a43d4 28%,#0e36557d 48%,#123a5120 70%,#102f4700 86%),linear-gradient(0deg,#0a263d91,transparent 36%)}
+.immersive .copy{padding:46px 52px 44px;text-shadow:0 2px 18px #061d3540}
+.immersive .brand{font-weight:500}
+.immersive .brand::after{background:#edb6bc}
+.immersive .middle{padding:58px 0 42px}
+.immersive .copy h2{font-size:48px;line-height:1.14;letter-spacing:-1.4px;margin:26px 0;max-width:460px}
+.immersive .description{font-size:15px;line-height:1.9;max-width:370px;color:#e0eaf3}
+.immersive .counter{color:#d6e4ee}
+.immersive .progress i.active{background:#f1c9ac}
+.immersive .continue{background:#f2ceb6;color:#173e55;border:1px solid #fff2e459;box-shadow:0 5px 22px #0c243430;text-shadow:none}
+.immersive .continue:hover{background:#ffdfc8}
+.immersive .continue span:last-child{color:#815443}
+.immersive .back{color:#e0eaf3}
+.immersive .art{background:none;overflow:visible}
+.immersive .art::before{display:none}
+.immersive .art-copy{margin-left:auto;padding:36px 38px;text-align:right;text-shadow:0 2px 20px #09263b88}
+.immersive .art-copy h3{font-size:28px;line-height:1.22}
+.immersive .art-copy small{font-size:9px;color:#f5f3eb}
+.immersive .diagram{background:#edf5fc;padding-top:10px;box-shadow:0 15px 50px #06243b33}
+.immersive .diagram p{color:#204f78}
+@media(max-width:1100px){.review-header{flex-wrap:wrap}.theme-controls{flex-wrap:wrap}.immersive .copy{padding:38px 32px}.immersive .copy h2{font-size:42px}.immersive .stage{aspect-ratio:auto;min-height:710px}.immersive .art-copy{padding:28px}.immersive .art-copy h3{font-size:25px}}
+@media(max-width:600px){.theme-controls{display:flex;gap:2px}.theme-controls button{padding:10px 11px;font-size:11px}.immersive .stage{min-height:690px;grid-template-columns:1fr;background:none}.immersive .stage::before{background:linear-gradient(90deg,#071f35ed,#0a2a43bd 65%,#0e365573),linear-gradient(0deg,#0a263d91,transparent 40%)}.immersive .copy{min-height:690px;padding:30px 28px}.immersive .copy h2{font-size:40px}.immersive .middle{padding:40px 0}.immersive .art{min-height:0}.immersive .art-copy{display:none}.immersive .diagram{margin:0 20px 24px;width:auto}.immersive .diagram p{font-size:17px}.immersive .description{font-size:14px}}
+
+/* Warm full-image study, using the original garden and a plum reading shade. */
+.window.garden-full{border-color:#9b8d83}
+.garden-full .chrome{background:#3c2c3e73;color:#fff5e6}
+.garden-full .stage::before{background:linear-gradient(90deg,#302137eb 0%,#443045d1 27%,#674d6178 49%,#896b6520 70%,transparent 86%),linear-gradient(0deg,#382739a3,transparent 40%)}
+.garden-full .copy{text-shadow:0 2px 18px #2e1f3433}
+.garden-full .description,.garden-full .back{color:#f2e8dd}
+.garden-full .counter{color:#ecdfd0}
+.garden-full .progress i.active{background:#e8d0a6}
+.garden-full .continue{background:#f4e6ca;color:#514050;border-color:#fff4dd80;box-shadow:0 5px 22px #30233430}
+.garden-full .continue:hover{background:#fff1d6}
+.garden-full .continue span:last-child{color:#80644e}
+.garden-full .art-copy{color:#fff9ed;text-shadow:0 2px 20px #30233488}
+.garden-full .diagram{background:#f6f1e4;box-shadow:0 15px 50px #30233433}
+.garden-full .diagram p{color:#514050}
+.fullscreen-link{font-size:11px;color:#756b65;text-decoration:underline;text-underline-offset:3px;white-space:nowrap}
+.exit-fullscreen{display:none}
+body.focus-preview{background:#514050}
+.focus-preview .review-header,.focus-preview .palette,.focus-preview .chrome{display:none}
+.focus-preview .window{margin:0;max-width:none;width:100%;border:0;border-radius:0;box-shadow:none}
+.focus-preview .stage{min-height:100svh;aspect-ratio:auto}
+.focus-preview .copy{padding:clamp(36px,5vw,80px)}
+.focus-preview .copy h2{font-size:clamp(42px,4vw,60px);max-width:580px}
+.focus-preview .description{font-size:17px;max-width:430px}
+.focus-preview .exit-fullscreen{display:block;position:fixed;right:24px;top:22px;z-index:5;color:#fff9ed;background:#38273966;backdrop-filter:blur(10px);border:1px solid #ffffff44;border-radius:24px;padding:10px 16px;font:12px -apple-system,sans-serif;text-decoration:none}
+@media(max-width:600px){.garden-full .stage::before{background:linear-gradient(90deg,#302137eb,#443045c9 65%,#674d6199),linear-gradient(0deg,#382739a3,transparent 40%)}.focus-preview .copy{padding:34px 28px}.focus-preview .copy h2{font-size:40px}.focus-preview .description{font-size:14px}.focus-preview .exit-fullscreen{top:16px;right:16px;font-size:10px;padding:8px 12px}.focus-preview .copy .brand{font-size:24px}.focus-preview .brand svg{width:23px}}
+
+/* The selected split garden has one small Open Glass caption surface. */
+.art-copy.glass-caption{margin:0 28px 30px;padding:25px 30px;width:calc(100% - 56px);text-align:left;box-shadow:0 12px 30px #38273920;flex-shrink:0}
+.art-copy.glass-caption h3{font-size:30px;line-height:1.22;margin-top:13px}
+.immersive .art-copy.glass-caption{width:auto;min-width:265px;margin:0 26px 28px auto;padding:22px 26px}
+.immersive .art-copy.glass-caption h3{font-size:25px}
+@media(max-width:900px){.art-copy.glass-caption{margin:0 18px 22px;padding:23px 25px;width:calc(100% - 36px)}.art-copy.glass-caption h3{font-size:27px}}
+
+@font-face{font-family:OpenPlexAthelas;src:local('Athelas'),local('Athelas-Regular');font-style:normal;font-weight:400;font-display:swap}
+@font-face{font-family:OpenPlexAthelas;src:local('Athelas Italic'),local('Athelas-Italic');font-style:italic;font-weight:400;font-display:swap}
+@font-face{font-family:OpenPlexSwitzer;src:url('/fonts/switzer/Switzer-Regular.woff2') format('woff2');font-weight:400;font-style:normal;font-display:swap}
+@font-face{font-family:OpenPlexSwitzer;src:url('/fonts/switzer/Switzer-Medium.woff2') format('woff2');font-weight:500;font-style:normal;font-display:swap}
+/* Coastal editorial study: Athelas + Switzer from the supplied editing direction. */
+.coast.immersive{font-family:OpenPlexSwitzer,sans-serif;font-synthesis:none;--muted:#e3ebf3}
+.coast.immersive .stage::before{background:linear-gradient(90deg,#17213ce8 0%,#19315dca 27%,#1b426a73 48%,#1d49701a 73%,transparent 90%),linear-gradient(0deg,#17213ca3,transparent 40%)}
+.coast.immersive .brand{font:400 32px OpenPlexAthelas,serif;letter-spacing:0}
+.coast.immersive .copy h2{font:400 56px/1.08 OpenPlexAthelas,serif;font-kerning:normal;letter-spacing:0;max-width:500px;color:#fff9ef}
+.coast.immersive .copy h2 em{font:italic 400 1.06em OpenPlexAthelas,serif;color:#f4d9cb}
+.coast.immersive .description{font:400 15px/1.8 OpenPlexSwitzer,sans-serif;color:#e3ebf3;letter-spacing:0;max-width:385px}
+.coast.immersive .counter{font:500 11px OpenPlexSwitzer,sans-serif;color:#dfd5d2;letter-spacing:.8px}
+.coast.immersive .continue{font:500 14px OpenPlexSwitzer,sans-serif;background:#f1d8ca;color:#19315d;border-color:#fff4e6a6;box-shadow:0 5px 22px #17213c35}
+.coast.immersive .continue:hover{background:#ffe7da}
+.coast.immersive .continue span:last-child{color:#a06759}
+.coast.immersive .progress i.active{background:#dca4a8}
+.coast.immersive .brand::after{background:#dca4a8}
+.coast.immersive .art-copy h3{font:400 29px/1.14 OpenPlexAthelas,serif;letter-spacing:0}
+.coast.immersive .art-copy small{font:500 10px OpenPlexSwitzer,sans-serif;letter-spacing:.7px}
+@media(max-width:1100px){.coast.immersive .copy h2{font-size:47px}.coast.immersive .description{font-size:14px}.coast.immersive .art-copy h3{font-size:25px}}
+@media(max-width:600px){.coast.immersive .stage::before{background:linear-gradient(90deg,#17213ced,#19315dc9 65%,#1b426a99),linear-gradient(0deg,#17213ca3,transparent 40%)}.coast.immersive .copy h2{font-size:44px}.coast.immersive .description{font-size:14px}}
+.art-copy.glass-caption{width:max-content;max-width:calc(100% - 56px);padding:25px 28px;flex:none}
+@media(max-width:900px){.art-copy.glass-caption{width:max-content;max-width:calc(100% - 36px);padding:23px 25px}}
+.art-copy{margin:0 28px 30px!important;padding:25px 28px!important;width:max-content;max-width:calc(100% - 56px);text-align:left!important;box-shadow:none!important;background:none;border:0;text-shadow:0 1px 8px #38273988}
+</style></head><body>
+<header class="review-header"><div><h1>A place that feels like you.<span class="review-status" id="status">ALTERNATIVE · PREVIEW ONLY</span></h1><p>The selected warm garden design. <a class="fullscreen-link" href="?fullscreen">View warm garden full screen ↗</a></p></div><nav class="theme-controls" aria-label="Compare themes"><button data-theme="garden" aria-pressed="false">Warm garden · current</button><button data-theme="garden-full" aria-pressed="true">Full-image garden</button></nav></header>
+<main class="window immersive garden-full" id="window" data-step="0"><div class="chrome"><span class="dots" aria-hidden="true"><i></i><i></i><i></i></span>OpenPlex</div><div class="stage"><section class="copy"><div class="brand"><svg viewBox="0 0 32 36" fill="none" aria-hidden="true"><path d="m2 10 14-8 14 8-14 8L2 10Zm0 8 14 8 14-8M2 26l14 8 14-8" stroke="currentColor" stroke-width="2.5" stroke-linejoin="round"/></svg>OpenPlex</div><div class="middle"><span class="counter" id="counter">01 / 03</span><h2 id="title">A place for your<br>next big thing.</h2><p class="description" id="description">Welcome to OpenPlex. Build a living office around the projects and people that matter to you.</p><div class="progress" aria-hidden="true"><i class="active"></i><i></i><i></i></div></div><div class="footer"><button class="back" id="back" hidden>Back</button><button class="continue" id="next"><span id="next-label">Continue</span><span aria-hidden="true">→</span></button></div></section><section class="art" aria-label="Themed landscape illustration"><div class="diagram" id="diagram"><img src="/illustrations/department-campus-coastal.svg" alt="Main office connected to six furnished departments"><p>A place for every department.</p></div><div class="art-copy"><small id="eyebrow">ROOM TO GROW</small><h3 id="art-title">Good ideas need<br>a little space.</h3></div></section></div></main>
+<footer class="palette"><div class="swatches"><span><i id="paper-swatch" style="background:#edf5fc"></i><span id="paper-label">Sky-blue paper</span></span><span><i id="ink-swatch" style="background:#204f78"></i><span id="ink-label">Marine-blue ink</span></span><span><i id="muted-swatch" style="background:#526f8b"></i>Secondary text</span><span><i style="background:#c88361"></i>Terracotta</span><span><i style="background:#d48b9e"></i>Blossom pink</span></div><span class="note">The warm garden theme remains in the app. This page is for comparison.</span></footer>
+<a class="exit-fullscreen" href="/theme-preview.html">← Compare themes</a>
+<script>
+let step=0;const qs=s=>document.querySelector(s);const titles=['A place for your<br>next big thing.','Your office.<br>Your arrangement.','A little character.<br>A lot of possibility.'];const descriptions=['Welcome to OpenPlex. Build a living office around the projects and people that matter to you.','Start with a blank canvas. Add departments around your main office, keep an even layout, or move everything into place yourself.','Choose your team, fill the seats, and watch the workday unfold. Your projects stay on this Mac, ready when you are.'];function render(){qs("#window").dataset.step=String(step);qs('#counter').textContent=`0${step+1} / 03`;qs('#title').innerHTML=headingForTheme();qs('#description').textContent=descriptions[step];qs('#back').hidden=step===0;qs('#next-label').textContent=step===2?'Back to the beginning':'Continue';document.querySelectorAll('.progress i').forEach((el,i)=>el.classList.toggle('active',i===step));qs('#eyebrow').textContent=['ROOM TO GROW','BETTER TOGETHER','A WORKDAY WITH CHARACTER'][step];qs('#art-title').innerHTML=['Good ideas need<br>a little space.','Your main office.<br>Everything around it.','Make yourself<br>at home.'][step];qs('#diagram').style.display=step===1?'block':'none'}qs('#next').onclick=()=>{step=(step+1)%3;render()};qs('#back').onclick=()=>{step=Math.max(0,step-1);render()};function headingForTheme(){return qs('#window').classList.contains('coast')&&qs('#window').classList.contains('immersive')?['A little space.<br><em>For a bigger idea.</em>','Good people.<br><em>In the right place.</em>','Your own rhythm.<br><em>Your kind of team.</em>'][step]:titles[step]}
+function applyTheme(theme){
+ const warmFull=theme==='garden-full',immersive=theme==='immersive'||warmFull,coast=theme==='coast'||theme==='immersive';
+ qs('#window').classList.toggle('coast',coast);
+ qs('#window').classList.toggle('immersive',immersive);
+ qs('#window').classList.toggle('garden-full',warmFull);
+ qs('#diagram img').src=coast?'/illustrations/department-campus-coastal.svg':'/illustrations/department-campus.svg';
+ document.querySelectorAll('[data-theme]').forEach(el=>el.setAttribute('aria-pressed',String(el.dataset.theme===theme)));
+ qs('#status').textContent=immersive?'FULL IMAGE · PREVIEW ONLY':coast?'ALTERNATIVE · PREVIEW ONLY':'CURRENT · KEPT IN THE APP';
+ qs('#paper-swatch').style.background=immersive?'#fff8ef':coast?'#edf5fc':'#f6f1e4';
+ qs('#ink-swatch').style.background=warmFull?'#514050':immersive?'#123a55':coast?'#204f78':'#514050';
+ qs('#muted-swatch').style.background=warmFull?'#f4e6ca':immersive?'#f2ceb6':coast?'#526f8b':'#8a8178';
+ qs('#paper-label').textContent=immersive?'Warm-white type':coast?'Sky-blue paper':'Warm cream paper';
+ qs('#ink-label').textContent=warmFull?'Plum shade':immersive?'Marine shade':coast?'Marine-blue ink':'Plum ink';
+ qs('#muted-swatch').nextSibling.textContent=warmFull?'Cream-gold button':immersive?'Shell-pink button':'Secondary text';
+ render();
+}
+document.querySelectorAll('[data-theme]').forEach(button=>button.onclick=()=>applyTheme(button.dataset.theme));
+applyTheme('garden');
+if(new URLSearchParams(location.search).has('fullscreen'))document.body.classList.add('focus-preview');
+</script></body></html>

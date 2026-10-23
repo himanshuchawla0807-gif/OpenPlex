@@ -1,0 +1,4 @@
+.glass-caption{position:relative;isolation:isolate;border-radius:28px;overflow:hidden;color:#fff8ed}
+.glass-caption>.open-glass-surface{position:absolute;inset:0;width:100%;height:100%;z-index:-1;pointer-events:none}
+.glass-caption:not([data-glass=webgl2]){background:#51405088;border:1px solid #fff0d970;backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px)}
+.glass-caption small,.glass-caption h3{position:relative;text-shadow:0 1px 8px #30233466}

@@ -1,0 +1,54 @@
+{
+  "antigravity": {
+    "path": "/harnesses/antigravity.ico",
+    "source": "https://antigravity.google/favicon.ico"
+  },
+  "cursor": {
+    "path": "/harnesses/cursor.ico",
+    "source": "https://cursor.com/marketing-static/favicon-light.ico"
+  },
+  "opencode": {
+    "path": "/harnesses/opencode.png",
+    "source": "https://opencode.ai/favicon-96x96-v3.png"
+  },
+  "muse": {
+    "path": "/harnesses/muse.ico",
+    "source": "https://dev.meta.ai/favicon.ico?favicon.0__pei86aoyzg.ico"
+  },
+  "deepseek": {
+    "path": "/harnesses/deepseek.ico",
+    "source": "https://www.deepseek.com/favicon.ico"
+  },
+  "zcode": {
+    "path": "/harnesses/zcode.svg",
+    "source": "https://z-cdn.chatglm.cn/z-ai/static/logo.svg"
+  },
+  "mcode": {
+    "path": "/harnesses/mcode.ico",
+    "source": "https://www.minimax.io/favicon.ico"
+  },
+  "kilo": {
+    "path": "/harnesses/kilo.ico",
+    "source": "https://kilo.ai/favicon.ico?v=3"
+  },
+  "openclaw": {
+    "path": "/harnesses/openclaw.svg",
+    "source": "https://openclaw.ai/favicon.svg"
+  },
+  "hermes": {
+    "path": "/harnesses/hermes.png",
+    "source": "https://web-assets.nousresearch.com/marketing/f89a61c5e4880f2db3b486c517a92d09ecbe5e70/assets/hermes-agent/icon.png"
+  },
+  "devin": {
+    "path": "/harnesses/devin.svg",
+    "source": "https://devin.ai/favicon.svg"
+  },
+  "claude": {
+    "path": "/harnesses/claude.ico",
+    "source": "https://www.anthropic.com/favicon.ico"
+  },
+  "codex": {
+    "path": "/harnesses/codex.svg",
+    "source": "https://chatgpt.com/cdn/assets/favicon-l4nq08hd.svg"
+  }
+}

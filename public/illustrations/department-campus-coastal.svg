@@ -1,0 +1,103 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 560" fill="none" role="img" aria-labelledby="title desc">
+<title id="title">A place for every department</title>
+<desc id="desc">A detailed isometric main office connected to six furnished departments: Engineering, Research, Design, Marketing, People and a shared Library.</desc>
+<defs>
+  <linearGradient id="floor" x1="0" y1="-36" x2="0" y2="36" gradientUnits="userSpaceOnUse"><stop stop-color="#fbfdff"/><stop offset="1" stop-color="#e0ebf4"/></linearGradient>
+  <linearGradient id="mainFloor" x1="0" y1="-45" x2="0" y2="45" gradientUnits="userSpaceOnUse"><stop stop-color="#daeafb"/><stop offset="1" stop-color="#b9d3ec"/></linearGradient>
+  <pattern id="tiles" width="20" height="10" patternUnits="userSpaceOnUse"><path d="M0 5 10 0 20 5 10 10Z" stroke="#a69b8e" stroke-width=".4" opacity=".2"/></pattern>
+  <filter id="shadow" x="-50%" y="-70%" width="200%" height="240%"><feDropShadow dx="0" dy="8" stdDeviation="7" flood-color="#204f78" flood-opacity=".10"/></filter>
+  <g id="room">
+    <path d="M-71 0 0-36 71 0 71 8 0 44-71 8Z" fill="#becfdd"/>
+    <path d="M-71 0 0-36 71 0 0 36Z" fill="url(#floor)" stroke="#98afc3" stroke-width="1"/>
+    <path d="M-71 0 0-36 71 0 0 36Z" fill="url(#tiles)"/>
+    <path d="M-71 0V-37L0-73V-36Z" fill="#dce8f2" stroke="#98afc3" stroke-width="1" stroke-linejoin="round"/>
+    <path d="M0-36V-73L71-37V0Z" fill="#f2f7fc" stroke="#98afc3" stroke-width="1" stroke-linejoin="round"/>
+    <path d="M-71-37 0-73 71-37" stroke="#fbfdff" stroke-width="3" stroke-linecap="round"/>
+    <path d="M-56-23-13-45V-60L-56-38Z" fill="#aacfe9" stroke="#79a6c7" stroke-width=".7"/>
+    <path d="M-36-33V-48M-56-31-13-53" stroke="#f5faff" stroke-width="2"/>
+  </g>
+  <g id="desk">
+    <path d="M-25 0 1-13 28 0 2 13Z" fill="#fffef8" stroke="#958b86" stroke-width="1" stroke-linejoin="round"/>
+    <path d="M-25 0V4L2 17V13ZM2 13V17L28 4V0Z" fill="#ded8ce"/>
+    <path d="M-21 5V14M23 6V15" stroke="#8c9290" stroke-width="2"/>
+    <path d="M-7-10V-24L9-16V-2Z" fill="#526570" stroke="#405660" stroke-width="1"/>
+    <path d="M-5-12V-21L7-15V-6Z" fill="#c9e4e4"/>
+    <path d="M-3-17 4-13M-3-14 2-11" stroke="#718b9d" stroke-width="1"/>
+    <path d="M-11 1-3-3 8 2 0 6Z" fill="#b4b7b5"/>
+    <path d="M-14 14-5 10 4 15-5 20Z" fill="#617c7a"/><path d="M-14 14V24L-5 29 4 24V15" fill="#78928c"/>
+  </g>
+  <g id="plant">
+    <path d="M-5 0H5L3 11H-3Z" fill="#b78872" stroke="#94725f" stroke-width=".7"/>
+    <path d="M0 1V-18M0-5Q-15-18-8-21 1-19 0-5M0-9Q14-26 15-16 12-8 0-9M0-14Q-5-33 3-30 10-25 0-14" fill="#8d9d76" stroke="#6f825f" stroke-width=".8"/>
+  </g>
+  <g id="books">
+    <path d="M-12-30 11-18V5L-12-7Z" fill="#b79676" stroke="#8d755f"/>
+    <path d="M-9-24V-17L8-9V-16ZM-9-13V-6L8 2V-5Z" fill="#e2d4bd"/>
+    <path d="M-7-23V-17M-3-21V-15M2-18V-13M6-16V-11M-7-11V-5M-2-9V-3M3-6V0" stroke="#738c8c" stroke-width="3"/>
+  </g>
+  <g id="label"><rect x="-69" y="46" width="138" height="27" rx="13.5" fill="#f2f8fd" stroke="#cfdfed"/></g>
+</defs>
+<!-- Connections sit beneath the rooms, following the same isometric axes. -->
+<g stroke="#a1bdd3" stroke-width="1.7" stroke-dasharray="3 6" stroke-linecap="round">
+  <path d="M320 126V225M196 205 261 244M444 205 379 244M196 359 267 315M444 359 373 315M320 332V418"/>
+</g>
+<g fill="#83abc8"><circle cx="320" cy="190" r="3"/><circle cx="229" cy="225" r="3"/><circle cx="411" cy="225" r="3"/><circle cx="228" cy="339" r="3"/><circle cx="412" cy="339" r="3"/><circle cx="320" cy="383" r="3"/></g>
+<!-- Engineering: desk, server cabinet, plant -->
+<g transform="translate(320 99)" filter="url(#shadow)">
+  <use href="#room"/><path d="M8-54 37-39V-14L8-29Z" fill="#d6e4df"/>
+  <g transform="translate(40 -15)"><path d="M-8-28 8-20V7L-8-1Z" fill="#697c7f" stroke="#4e656c"/><path d="M-5-22 5-17M-5-15 5-10M-5-8 5-3" stroke="#b9d8d0" stroke-width="2"/><path d="M-3-20-3-19M-3-13-3-12M-3-6-3-5" stroke="#f4d497" stroke-width="2"/></g>
+  <use href="#desk" transform="translate(-14 2)"/><use href="#plant" transform="translate(-54 -2) scale(.65)"/>
+  <use href="#label"/><text y="64" text-anchor="middle" fill="#617875" font-family="Arial,sans-serif" font-size="11" letter-spacing="1.2">ENGINEERING</text>
+</g>
+<!-- Research: laboratory bench and specimen vessels -->
+<g transform="translate(140 190)" filter="url(#shadow)">
+  <use href="#room"/><path d="M10-54 48-35V-20L10-39Z" fill="#e2d9e9" stroke="#b5a2c0" stroke-width=".8"/>
+  <use href="#desk" transform="translate(-13 0)"/>
+  <g transform="translate(35 -3)"><path d="M-15-2 0-10 17-2 2 6Z" fill="#e9e3d3" stroke="#a99b88"/><path d="M-6-9-3-15V-22H2V-15L5-4Q0 0-7-4Z" fill="#c1d9d0" stroke="#769d97"/><path d="M6-8V-18H12V-5Q9-3 6-8Z" fill="#d5bdd7" stroke="#9f85a6"/></g>
+  <use href="#plant" transform="translate(-54 -2) scale(.65)"/>
+  <use href="#label"/><text y="64" text-anchor="middle" fill="#8c7397" font-family="Arial,sans-serif" font-size="11" letter-spacing="1.2">RESEARCH</text>
+</g>
+<!-- Design: moodboard, colour studies and workstation -->
+<g transform="translate(500 190)" filter="url(#shadow)">
+  <use href="#room"/><path d="M8-56 53-33V-15L8-38Z" fill="#ddc3ae" stroke="#bd9984" stroke-width=".8"/>
+  <path d="M13-50 24-44V-34L13-40ZM29-42 39-37V-27L29-32ZM43-35 49-32V-22L43-25Z" fill="#fff8e7"/>
+  <path d="M15-48 22-44V-40L15-44ZM31-40 37-37V-33L31-36ZM45-33 48-31V-27L45-29Z" fill="#a08092"/>
+  <use href="#desk" transform="translate(-12 2)"/><use href="#books" transform="translate(45 -3) scale(.8)"/><use href="#plant" transform="translate(-53 -1) scale(.7)"/>
+  <use href="#label"/><text y="64" text-anchor="middle" fill="#a67e67" font-family="Arial,sans-serif" font-size="11" letter-spacing="1.2">DESIGN</text>
+</g>
+<!-- Main office: two workstations, a shared table and a plum focal wall -->
+<g transform="translate(320 285)" filter="url(#shadow)">
+  <path d="M-90 0 0-45 90 0V10L0 55-90 10Z" fill="#7ea6c7"/>
+  <path d="M-90 0 0-45 90 0 0 45Z" fill="url(#mainFloor)" stroke="#7095b8" stroke-width="1.2"/>
+  <path d="M-90 0V-46L0-91V-45Z" fill="#bfd7ed" stroke="#7da2c1" stroke-width="1.2"/>
+  <path d="M0-45V-91L90-46V0Z" fill="#2c5c86" stroke="#204f78" stroke-width="1.2"/>
+  <path d="M-90-46 0-91 90-46" stroke="#edf7ff" stroke-width="3"/>
+  <path d="M-73-29-20-55V-75L-73-49Z" fill="#d4e7e8" stroke="#8da7b2"/><path d="M-46-42V-62" stroke="#f6f3e9" stroke-width="2"/>
+  <path d="M15-74 48-57V-38L15-55Z" fill="#dbc6af" stroke="#eadac7"/><path d="M21-64 39-55M21-59 33-53" stroke="#8a7289" stroke-width="2"/>
+  <use href="#desk" transform="translate(-40 -3)"/><use href="#desk" transform="translate(14 23)"/>
+  <use href="#plant" transform="translate(-73 0) scale(.9)"/><use href="#plant" transform="translate(73 -3) scale(.85)"/>
+  <path d="M18-9 40-20 63-9 41 2Z" fill="#f0e6d9" stroke="#af98ab"/><path d="M23-6V4M57-6V4" stroke="#917f96" stroke-width="2"/>
+  <rect x="-78" y="65" width="156" height="29" rx="14.5" fill="#285c86"/><text y="84" text-anchor="middle" fill="#fffaf1" font-family="Arial,sans-serif" font-size="11" letter-spacing="1.8">YOUR MAIN OFFICE</text>
+</g>
+<!-- Marketing: campaign board -->
+<g transform="translate(140 382)" filter="url(#shadow)">
+  <use href="#room"/><path d="M8-55 52-33V-13L8-35Z" fill="#e7d6aa" stroke="#b4a16e"/>
+  <path d="M17-37V-42M27-32V-42M37-27V-42M47-22V-35" stroke="#ab8267" stroke-width="4"/>
+  <use href="#desk" transform="translate(-13 2)"/><use href="#plant" transform="translate(48 6) scale(.8)"/>
+  <use href="#label"/><text y="64" text-anchor="middle" fill="#9e8553" font-family="Arial,sans-serif" font-size="11" letter-spacing="1.2">MARKETING</text>
+</g>
+<!-- People: sofa and conversation table -->
+<g transform="translate(500 382)" filter="url(#shadow)">
+  <use href="#room"/><path d="M8-55 48-35V-19L8-39Z" fill="#ead5d3"/><use href="#plant" transform="translate(50 3) scale(.9)"/>
+  <path d="M-47-4-24-16 12 2-11 14Z" fill="#d4adb2" stroke="#ae8595"/><path d="M-47-4V9L-11 27V14ZM-47-4-47-18-39-22-39-8ZM-11 14 12 2V15L-11 27Z" fill="#bc929f" stroke="#ae8595"/>
+  <path d="M-5 9 15-1 34 9 14 19Z" fill="#f9f1df" stroke="#af9b8c"/><path d="M0 12V21M28 12V21" stroke="#af9b8c" stroke-width="2"/>
+  <use href="#label"/><text y="64" text-anchor="middle" fill="#a37e8b" font-family="Arial,sans-serif" font-size="11" letter-spacing="1.2">PEOPLE</text>
+</g>
+<!-- Library: shelving and reading table -->
+<g transform="translate(320 474)" filter="url(#shadow)">
+  <use href="#room"/><use href="#books" transform="translate(20 -29)"/><use href="#books" transform="translate(47 -15)"/>
+  <path d="M-30-3-5-15 20-3-5 10Z" fill="#d8c6a5" stroke="#a58b70"/><path d="M-25 0V11M15 0V11" stroke="#a58b70" stroke-width="2"/>
+  <path d="M-14-6-6-10 4-5-4-1Z" fill="#fffdf5" stroke="#9f9190"/><path d="M-6-10-6-4" stroke="#9f9190"/><use href="#plant" transform="translate(-53 0) scale(.7)"/>
+  <use href="#label"/><text y="64" text-anchor="middle" fill="#7c8964" font-family="Arial,sans-serif" font-size="11" letter-spacing="1.2">LIBRARY</text>
+</g>
+</svg>
