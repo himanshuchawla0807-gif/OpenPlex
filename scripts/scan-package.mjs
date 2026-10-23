@@ -1,0 +1,6 @@
+import {readFileSync,readdirSync,lstatSync,writeFileSync} from 'node:fs'
+import {resolve,relative} from 'node:path'
+const root=resolve(process.argv[2]??'output/next/OpenPlex.app'),findings=[];let files=0
+const patterns=[/gh[pousr]_[A-Za-z0-9]{30,}/,/github_pat_[A-Za-z0-9_]{50,}/,/sk-or-v1-[A-Za-z0-9]{30,}/,/-----BEGIN (?:RSA |EC |OPENSSH )?PRIVATE KEY-----/,/AIza[0-9A-Za-z_-]{35}/]
+function walk(dir){for(const name of readdirSync(dir)){const path=resolve(dir,name),stat=lstatSync(path),label=relative(root,path);if(stat.isSymbolicLink()){findings.push({file:label,reason:'Unexpected symlink'});continue}if(stat.isDirectory()){walk(path);continue}files++;if(/(^|\/)(\.env|\.git|\.openplex)(\/|$)|\.(pem|key|log)$/i.test(label)){findings.push({file:label,reason:'Unexpected private/generated entry'});continue}const data=readFileSync(path);if(patterns.some(p=>p.test(data.toString('utf8'))))findings.push({file:label,reason:'Possible credential pattern; value hidden'})}}
+walk(root);const report={scope:'Candidate bundle only; no Git history is available',files,findings,limitations:['Pattern scanning cannot prove absence of secrets.','No runtime egress or independent penetration test is implied.']};writeFileSync('output/security-package-scan.json',JSON.stringify(report,null,2));console.log(JSON.stringify(report));if(findings.length)process.exitCode=1
