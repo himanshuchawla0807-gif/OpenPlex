@@ -24,7 +24,7 @@ const DELETED_OFFICES_KEY='openplex.deleted-offices.v1'
 const readDeleted=()=>{try{return parseProjects(localStorage.getItem(DELETED_OFFICES_KEY))}catch{return []}}
 const readSaved=()=>{try{return parseProjects(localStorage.getItem(STORAGE_KEY))}catch{return []}}
 export default function BuilderApp(){
- const [projects,setStoredProjects]=useState<OfficeProject[]>(readSaved),[activeId,setActiveId]=useState<string|null>(null)
+ const [projects,setStoredProjects]=useState<OfficeProject[]>(readSaved),[activeId,setActiveId]=useState<string|null>(()=>import.meta.env.DEV&&new URLSearchParams(location.search).has('recording')?'openplex-recording-v1':null)
  const [deletedOffices,setDeletedOffices]=useState<OfficeProject[]>(readDeleted),[deletingOffice,setDeletingOffice]=useState<string|null>(null),[officeActionError,setOfficeActionError]=useState('')
  const [inventoryReady,setInventoryReady]=useState(()=>!nativeAvailable())
  const [creating,setCreating]=useState(false),[projectName,setProjectName]=useState(''),[preset,setPreset]=useState(false)

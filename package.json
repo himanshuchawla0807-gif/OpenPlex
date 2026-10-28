@@ -11,14 +11,15 @@
     "lint": "oxlint",
     "preview": "vite preview",
     "dev:builder": "vite --host 127.0.0.1 --port 5180 --strictPort",
-    "test:builder": "node --experimental-strip-types --test src/builder/workspace.test.mjs src/builder/agentSessions.test.mjs src/builder/taskSchedule.test.mjs src/builder/employee-profile.test.mjs src/builder/conversation.test.mjs src/builder/employeeSpaces.test.mjs src/builder/builderHistory.test.mjs src/builder/releaseSafety.test.mjs src/builder/officeStatus.test.mjs",
+    "test:builder": "node --experimental-strip-types --test src/builder/workspace.test.mjs src/builder/agentSessions.test.mjs src/builder/taskSchedule.test.mjs src/builder/employee-profile.test.mjs src/builder/conversation.test.mjs src/builder/employeeSpaces.test.mjs src/builder/builderHistory.test.mjs src/builder/releaseSafety.test.mjs src/builder/officeStatus.test.mjs src/builder/recordingProject.test.mjs",
     "test:native": "sh scripts/test-native.sh",
     "test:webkit": "swift scripts/check-webkit-canvas.swift",
     "test:terminal": "sh scripts/test-terminal.sh",
     "test:employee-workspace": "sh scripts/test-employee-workspace.sh",
     "test:http": "sh scripts/test-workspace-http.sh",
     "app:build": "bash native/OpenPlex/build.sh",
-    "app:open": "open output/OpenPlex.app"
+    "app:open": "open output/OpenPlex.app",
+    "recording": "node scripts/recording.mjs"
   },
   "dependencies": {
     "@clayzo/animation": "^0.3.17",

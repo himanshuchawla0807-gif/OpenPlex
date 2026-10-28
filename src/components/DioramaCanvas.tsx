@@ -9,7 +9,7 @@ import { Camera } from '../camera/Camera'
 import { fitCameraToRooms } from '../camera/fitCamera'
 import { canvasToWorld, findTopRoomAtPoint } from '../engine/interaction'
 import { ProceduralRenderer } from '../procedural/ProceduralRenderer'
-import type { Point, Size } from '../types/geometry'
+import type { CameraState, Point, Size } from '../types/geometry'
 import { rooms as presetRooms } from '../procedural/campus'
 import {officeDefinitions} from '../procedural/officeRooms'
 import type {OfficeDefinition} from '../procedural/model'
@@ -65,6 +65,7 @@ export const DioramaCanvas = forwardRef<DioramaCanvasHandle, DioramaCanvasProps>
     const viewportRef = useRef<Size>({ width: 1, height: 1 })
     const cameraWasMovedRef = useRef(false)
     const zoomTargetRef=useRef<{zoom:number;point:Point}|null>(null)
+    const recordingTween=useRef<{from:CameraState;to:CameraState;start:number;duration:number;lift:number}|null>(null)
     const pointersRef=useRef(new Map<number,Point>())
     const pinchRef=useRef<{distance:number;center:Point}|null>(null)
     const interactionRef = useRef<InteractionState>({
@@ -131,6 +132,17 @@ export const DioramaCanvas = forwardRef<DioramaCanvasHandle, DioramaCanvasProps>
       let measuredTimestamp=0
       const seek=(event:Event)=>{const d=(event as CustomEvent<{world:number;bruno:number;play?:boolean}>).detail;if(!d)return;renderer.seekReview(d.world,d.bruno);if(d.play)renderer.resumeReview();lastReport=-Infinity}
       if(new URLSearchParams(location.search).has('review'))window.addEventListener('office-review-seek',seek)
+      const recordingCamera=(event:Event)=>{
+        if(!import.meta.env.DEV||!new URLSearchParams(location.search).has('recording'))return
+        const {room,mode}=(event as CustomEvent<{room?:string;mode?:string}>).detail??{}
+        const targets=room?rooms.filter(r=>r.id===room):rooms
+        if(!targets.length)return
+        const to=fitCameraToRooms(viewportRef.current,targets),from={...cameraRef.current.value}
+        cameraWasMovedRef.current=true;zoomTargetRef.current=null
+        const distance=Math.hypot(to.x/to.zoom-from.x/from.zoom,to.y/to.zoom-from.y/from.zoom)
+        recordingTween.current={from,to,start:performance.now(),duration:motionPreference.matches&&!fullMotion?0:mode==='cinematic'?1500:room?3400:1100,lift:mode==='cinematic'?.08:Math.min(.35,distance/6000)}
+      }
+      window.addEventListener('openplex-recording-camera',recordingCamera)
 
       const resize = () => {
         const rect = canvas.getBoundingClientRect()
@@ -148,6 +160,7 @@ export const DioramaCanvas = forwardRef<DioramaCanvasHandle, DioramaCanvasProps>
       }
 
       const wheel=(event:WheelEvent)=>{
+        recordingTween.current=null
         event.preventDefault()
         const rect=canvas.getBoundingClientRect(),point={x:event.clientX-rect.left,y:event.clientY-rect.top}
         const gesture=wheelGesture(event.deltaX,event.deltaY,event.deltaMode,event.ctrlKey,rect.height)
@@ -183,6 +196,16 @@ export const DioramaCanvas = forwardRef<DioramaCanvasHandle, DioramaCanvasProps>
         const renderStarted=performance.now()
         const delta = lastFrame ? Math.min(0.05, (timestamp - lastFrame) / 1000) : 0
         lastFrame = timestamp
+        const tween=recordingTween.current
+        if(tween){
+          const u=tween.duration?Math.min(1,(timestamp-tween.start)/tween.duration):1
+          const e=u<.5?4*u*u*u:1-Math.pow(-2*u+2,3)/2
+          const z=(tween.from.zoom+(tween.to.zoom-tween.from.zoom)*e)*(1-Math.sin(u*Math.PI)*tween.lift)
+          const x=tween.from.x/tween.from.zoom+(tween.to.x/tween.to.zoom-tween.from.x/tween.from.zoom)*e
+          const y=tween.from.y/tween.from.zoom+(tween.to.y/tween.to.zoom-tween.from.y/tween.from.zoom)*e
+          cameraRef.current.reset({x:x*z,y:y*z,zoom:z});onZoomChangeRef.current(z)
+          if(u===1)recordingTween.current=null
+        }
         const zoomTarget=zoomTargetRef.current
         if(zoomTarget) {
           const current=cameraRef.current.value.zoom
@@ -227,6 +250,7 @@ export const DioramaCanvas = forwardRef<DioramaCanvasHandle, DioramaCanvasProps>
         canvas.removeEventListener('contextlost',recoverSurfaces)
         canvas.removeEventListener('contextrestored',recoverSurfaces)
         window.removeEventListener('office-review-seek',seek)
+        window.removeEventListener('openplex-recording-camera',recordingCamera)
         renderer.dispose();rendererRef.current=null
         canvas.removeEventListener('wheel',wheel)
         canvas.removeEventListener('gesturestart',gestureStart)
@@ -258,6 +282,7 @@ export const DioramaCanvas = forwardRef<DioramaCanvasHandle, DioramaCanvasProps>
       return a&&b?{distance:Math.hypot(a.x-b.x,a.y-b.y),center:{x:(a.x+b.x)/2,y:(a.y+b.y)/2}}:null
     }
     const handlePointerDown=(event:React.PointerEvent<HTMLCanvasElement>)=>{
+      recordingTween.current=null
       if(event.pointerType==='mouse'&&event.button!==0)return
       const point=getCanvasPoint(event),interaction=interactionRef.current
       cameraWasMovedRef.current=true;zoomTargetRef.current=null
