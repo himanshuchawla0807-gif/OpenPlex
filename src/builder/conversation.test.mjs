@@ -85,3 +85,14 @@ test('assistant-only projection anchored to the latest repeated input updates th
  assert.deepEqual(mergeConversation([first,one,first],[first,two]),[first,one,first,two])
  assert.deepEqual(mergeConversation([first,one,first,two],[first,{...two,text:'Two, still streaming'}]),[first,one,first,{...two,text:'Two, still streaming'}])
 })
+
+// Captured from the live Codex 0.165 recording smoke check.
+test('hollow working spinner redraws never become repeated user messages',()=>{
+ const prompt={role:'user',text:'Summarize the fictional demo task.'}
+ let saved=[prompt]
+ for(let n=0;n<4;n++)saved=mergeConversation(saved,projectConversation(`› ${prompt.text}\n\n◦ Working (${n}s • esc to interrupt)\n\n› Ask Codex to do anything`))
+ assert.deepEqual(saved,[prompt])
+ saved=mergeConversation(saved,projectConversation(`› ${prompt.text}\n• The checklist is drafted.`))
+ assert.deepEqual(saved,[prompt,{role:'assistant',text:'The checklist is drafted.'}])
+ assert.deepEqual(mergeConversation([prompt,{role:'user',text:prompt.text+'\n\n◦ Working (1s • esc to interrupt)'}],[]),[prompt])
+})

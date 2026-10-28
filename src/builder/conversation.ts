@@ -6,7 +6,7 @@ export function terminalActivity(payload:string):boolean|undefined{
 }
 const cliUpdateMenu=(text:string)=>/^1\.\s+Update now \(runs [\s\S]*https:\/\/chatgpt\.com\/\s*codex\/install\.sh/.test(text)
 const placeholder=/^(?:Ask Codex to do anything|What would you like to do\?)$/i
-const chrome=/^(?:Worked for \d|[─━]{3,}|[╭╰│╮╯]|[›❯]\s*$|GPT[-– ]|gpt-|\? for shortcuts|\d+% context|context left|Tip:|shift\+tab|esc to interrupt|[⚠△].*warnings|[•✻✽✶✳⏺]\s*(?:Working|Thinking|Running|Reading|Searching|Compacting))/i
+const chrome=/^(?:Worked for \d|[─━]{3,}|[╭╰│╮╯]|[›❯]\s*$|GPT[-– ]|gpt-|\? for shortcuts|\d+% context|context left|Tip:|shift\+tab|esc to interrupt|[⚠△].*warnings|[•◦✻✽✶✳⏺]\s*(?:Working|Thinking|Running|Reading|Searching|Compacting))/i
 /** Project known CLI speaker markers from xterm's decoded, unwrapped buffer.
  * Unknown output stays in Terminal/activity; it is never invented as a reply. */
 export function projectConversation(snapshot:string):ConversationMessage[]{
@@ -24,7 +24,8 @@ export function projectConversation(snapshot:string):ConversationMessage[]{
  return messages.map(m=>({...m,text:m.text.trim()})).filter(m=>m.text&&!(m.role==='user'&&cliUpdateMenu(m.text)))
 }
 export function mergeConversation(saved:ConversationMessage[],live:ConversationMessage[]):ConversationMessage[]{
- saved=saved.filter(m=>!(m.role==='user'&&cliUpdateMenu(m.text)))
+ saved=saved.filter(m=>!(m.role==='user'&&cliUpdateMenu(m.text))).map(m=>m.role==='user'?{...m,text:m.text.replace(/\n\s*◦\s*(?:Working|Thinking)\s*\([^)]*\)[\s\S]*$/,'').trim()}:m)
+ saved=saved.filter((m,i)=>!(m.role==='user'&&i>0&&saved[i-1].role==='user'&&saved[i-1].text===m.text))
  live=live.filter(m=>!(m.role==='user'&&cliUpdateMenu(m.text)))
  if(!live.length)return saved
  live=live.map(message=>({...message}))
