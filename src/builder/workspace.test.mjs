@@ -2,6 +2,7 @@ import test from 'node:test'
 import assert from 'node:assert/strict'
 import {addEmployee,addRoom,arrangeRooms,createProject,parseProjects,projectDefinitions} from './workspace.ts'
 import {officeDefinitions} from '../procedural/officeRooms.ts'
+import {arrangeFootprints} from '../procedural/roomLayout.ts'
 test('an identity can only be hired once across a project, including restored data',()=>{
  let p=addRoom(addRoom(createProject('Distinct team'),officeDefinitions[0].id),officeDefinitions[1].id)
  p=addEmployee(p,p.rooms[0].id,1)
@@ -37,11 +38,11 @@ test('stored data round trips and invalid catalog, coordinates and employees are
  p.rooms[0].staff=[0,0,-1,100,3.2,2];p.rooms.push({...p.rooms[1],id:'unknown',templateId:'unknown'});p.rooms.push({...p.rooms[1],id:'bad',origin:{x:NaN,y:0}})
  const read=parseProjects(JSON.stringify([p]))[0];assert.equal(read.rooms.length,officeDefinitions.length);assert.deepEqual(read.rooms[0].staff,[0,2])
 })
-test('main office is centered even when added last, with balanced campus bounds',()=>{
+test('main office stays near the center even when added last, with balanced campus bounds',()=>{
  const p=createProject('Centered',true)
  const input=[...p.rooms.slice(1),p.rooms[0]],rooms=arrangeRooms(input)
  const main=rooms.find(r=>r.templateId==='connected-office'),d=officeDefinitions[0]
- assert.equal(main.origin.x+d.width/2,0);assert.equal(main.origin.y+d.depth/2,0)
+ assert.ok(Math.abs(main.origin.x+d.width/2)<=d.width);assert.ok(Math.abs(main.origin.y+d.depth/2)<=d.depth)
  assert.deepEqual(rooms.map(r=>r.id),input.map(r=>r.id))
  const bounds=rooms.map(r=>({...r.origin,...officeDefinitions.find(d=>d.id===r.templateId)}))
  const minX=Math.min(...rooms.map(r=>r.origin.x)),maxX=Math.max(...rooms.map((r,i)=>r.origin.x+bounds[i].width))
@@ -148,10 +149,41 @@ test('CEO has one seat; legacy teams and their identity are preserved on restore
  assert.deepEqual(restored.rooms.find(r=>r.templateId==='ceo-office').staff,[])
  assert.deepEqual(parseProjects(JSON.stringify([restored])),[restored])
 })
-test('campus placement is stable across add order and full campus has mirrored wings',()=>{
+test('campus placement is stable across add order and fills a compact diamond',()=>{
  const p=createProject('Balanced',true),placed=arrangeRooms(p.rooms)
  const reverse=arrangeRooms([...p.rooms].reverse())
  assert.deepEqual(Object.fromEntries(placed.map(r=>[r.id,r.origin])),Object.fromEntries(reverse.map(r=>[r.id,r.origin])))
  const footprints=placed.map(r=>({...r.origin,...officeDefinitions.find(d=>d.id===r.templateId)}))
- for(const f of footprints)assert.ok(footprints.some(g=>g.x===-f.x-f.width&&g.y===f.y&&g.width===f.width&&g.depth===f.depth))
+ const width=Math.max(...footprints.map(f=>f.x+f.width))-Math.min(...footprints.map(f=>f.x))
+ const depth=Math.max(...footprints.map(f=>f.y+f.depth))-Math.min(...footprints.map(f=>f.y))
+ const filled=footprints.reduce((sum,f)=>sum+f.width*f.depth,0)/(width*depth)
+ assert.ok(filled>.75,'Campus shelves must not leave large holes between offices')
+ assert.ok(Math.max(width/depth,depth/width)<1.4,'Campus footprint should remain near-square')
+})
+
+// A fifteen-room recording campus must remain solid instead of starting a new ring.
+test('fifteen rooms form contiguous balanced rows without a hollow center',()=>{
+ const original=createProject('Recording',true).rooms
+ const rooms=arrangeRooms(Array.from({length:15},(_,i)=>({...original[i%original.length],id:`demo-${i}`})))
+ const footprints=rooms.map(r=>({...r.origin,...officeDefinitions.find(d=>d.id===r.templateId)}))
+ const rows=new Map()
+ for(const f of footprints){const row=rows.get(f.y)??[];row.push(f);rows.set(f.y,row)}
+ assert.deepEqual([...rows.values()].map(row=>row.length).sort(),[3,4,4,4])
+ for(const row of rows.values()){row.sort((a,b)=>a.x-b.x);for(let i=1;i<row.length;i++)assert.equal(row[i].x-row[i-1].x-row[i-1].width,3)}
+ const width=Math.max(...footprints.map(f=>f.x+f.width))-Math.min(...footprints.map(f=>f.x))
+ const depth=Math.max(...footprints.map(f=>f.y+f.depth))-Math.min(...footprints.map(f=>f.y))
+ assert.ok(footprints.reduce((sum,f)=>sum+f.width*f.depth,0)/(width*depth)>.7)
+})
+
+test('mixed room sizes retain circulation gaps and deterministic identities',()=>{
+ const catalog=[{id:'large',width:31,depth:28},{id:'small',width:12,depth:14},{id:'wide',width:27,depth:11}]
+ for(let count=1;count<=40;count++){
+  const source=Array.from({length:count},(_,i)=>({id:`mixed-${i}`,templateId:catalog[i%3].id,origin:{x:0,y:0}}))
+  const rooms=arrangeFootprints(source,catalog),reversed=arrangeFootprints([...source].reverse(),catalog)
+  assert.deepEqual(Object.fromEntries(rooms.map(r=>[r.id,r.origin])),Object.fromEntries(reversed.map(r=>[r.id,r.origin])))
+  for(let a=0;a<count;a++)for(let b=a+1;b<count;b++){
+   const x=rooms[a],y=rooms[b],xd=catalog.find(d=>d.id===x.templateId),yd=catalog.find(d=>d.id===y.templateId)
+   assert.ok(x.origin.x+xd.width+3<=y.origin.x||y.origin.x+yd.width+3<=x.origin.x||x.origin.y+xd.depth+3<=y.origin.y||y.origin.y+yd.depth+3<=x.origin.y)
+  }
+ }
 })

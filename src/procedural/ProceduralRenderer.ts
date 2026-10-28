@@ -25,6 +25,7 @@ export class ProceduralRenderer {
   private readonly architecture=new OfficeArchitecture()
   private readonly tiles=new CanvasTileCache()
   private cacheLevel=-1
+  private printLevel=0
   private dark=false
   get cacheBytes(){return this.tiles.bytes}
   resetSurfaces(){this.tiles.clear();this.backdrop=null;this.cacheLevel=-1}
@@ -64,12 +65,12 @@ export class ProceduralRenderer {
     const dark=document.documentElement.dataset.appearance==='dark'
     if(dark!==this.dark){this.dark=dark;this.architecture.setAppearance(dark);this.resetSurfaces()}
     this.architecture.setScreenScale(state.zoom)
-    // Raster density may change with zoom; the material's world-space pattern does not.
+    // Both raster density and the screen-sized print belong to the cache key.
     const rasterLevel=state.zoom<.4?0:state.zoom<.7?1:2
-    if(this.cacheLevel!==rasterLevel){this.tiles.clear();this.cacheLevel=rasterLevel}
+    if(this.cacheLevel!==rasterLevel||this.printLevel!==this.architecture.screenLevel){this.tiles.clear();this.cacheLevel=rasterLevel;this.printLevel=this.architecture.screenLevel}
     this.team.beginFrame();this.drawBackdrop(viewport)
     ctx.setTransform(dpr*state.zoom,0,0,dpr*state.zoom,dpr*(viewport.width/2+state.x),dpr*(viewport.height/2+state.y))
-    ctx.lineCap='round';ctx.lineJoin='round';ctx.imageSmoothingEnabled=true;ctx.imageSmoothingQuality='low'
+    ctx.lineCap='round';ctx.lineJoin='round';ctx.imageSmoothingEnabled=true;ctx.imageSmoothingQuality='high'
     const variant=0
     // Keep the floor vector-sharp at close inspection. Cache static furniture at
     // display density; repeatedly drawing every book spine made gait playback stutter.

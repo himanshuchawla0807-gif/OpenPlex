@@ -24,9 +24,15 @@ export class OfficeArchitecture {
   private dark=false;
   setAppearance(dark:boolean){if(this.dark!==dark){this.dark=dark;this.patterns.clear()}}
   private material(fill:string){if(!this.dark||fill.startsWith('rgba'))return fill;const values=fill.startsWith('rgb')?fill.match(/[\d.]+/g)!.slice(0,3).map(Number):[1,3,5].map(i=>parseInt(fill.slice(i,i+2),16));if(values.some(v=>!Number.isFinite(v)))return fill;return `rgb(${values.map((v,i)=>Math.round(v*.62+[18,24,34][i])).join(',')})`}
-  // One world-space print specification at every camera scale.
-  setScreenScale(_scale:number):void {}
-  get screenLevel():number { return 2; }
+  private printLevel=0;
+  // Keep the print above a fine 1.4px screen pitch when zoomed out. Buckets avoid
+  // rebuilding cached rooms on every wheel event while keeping dots consistent.
+  setScreenScale(scale:number):void {
+    const level=Math.round(Math.log2(Math.min(.45,Math.max(.05,scale))/.45)*4);
+    if(level!==this.printLevel){this.printLevel=level;this.patterns.clear()}
+  }
+  get screenLevel():number { return this.printLevel; }
+  private get printScale():number {return .2/Math.pow(2,this.printLevel/4)}
 
   /** Reference screen specification: 3.1px pitch, 5x supersampling, eight-cell
    * tiles, twenty density steps and three independently registered impressions.
@@ -41,10 +47,14 @@ export class OfficeArchitecture {
     const rgb = channels ?? [n >> 16,(n >> 8)&255,n&255];
     const light = (rgb[0]*.2126+rgb[1]*.7152+rgb[2]*.0722)/255;
     const tone = Math.round((light>.86?.15:light>.62?.3:light>.42?.5:.8)*20)/20;
-    const cell = 3.1*5, size = 124;
+    const fine=this.printLevel<0, cells=fine?16:8;
+    const cell = 3.1*5, size = cell*cells;
+    // Break the regular screen lattice below inspection zoom. Two rotated dot
+    // screens otherwise beat against the cache pixels and form giant moiré dots.
+    const jitterWidth=fine?cell*.95:.8;
     const tile = document.createElement('canvas'); tile.width=size; tile.height=size;
     const paint = tile.getContext('2d'); if (!paint) return undefined;
-    const contrast=this.screenLevel===0?.78:1;
+    const contrast=1;
     const dark=(light>.8?110:light>.62?116:light>.42?86:40)*contrast;
     const base = this.dark ? shade(color,8) : mixInk(shade(color,Math.min(24,dark*tone/(1-tone))),light>.62?'#f3ebdd':shade(color,Math.min(105,dark*tone/(1-tone))),.65); 
     paint.fillStyle=base; paint.fillRect(0,0,size,size);
@@ -52,15 +62,15 @@ export class OfficeArchitecture {
     let seed = (n ^ (this.variant+1)*2654435761) >>> 0;
     const random = () => { seed = (Math.imul(seed,1664525)+1013904223)>>>0; return seed/4294967296; };
     if(tone<=.5) {
-      for(let y=0;y<8;y++) for(let x=0;x<8;x++) {
+      for(let y=0;y<cells;y++) for(let x=0;x<cells;x++) {
         const radius=cell*Math.sqrt(tone/Math.PI)*(.86+random()*.24);
-        paint.beginPath();paint.arc((x+.5)*cell+(random()-.5)*.8,(y+.5)*cell+(random()-.5)*.8,radius,0,Math.PI*2);paint.fill();
+        paint.beginPath();paint.arc((x+.5)*cell+(random()-.5)*jitterWidth,(y+.5)*cell+(random()-.5)*jitterWidth,radius,0,Math.PI*2);paint.fill();
       }
     } else {
       paint.fillRect(0,0,size,size);paint.fillStyle=base;
-      for(let y=0;y<=8;y++)for(let x=0;x<=8;x++) {
+      for(let y=0;y<=cells;y++)for(let x=0;x<=cells;x++) {
         const radius=cell*Math.sqrt((1-tone)/Math.PI)*(.86+random()*.24);
-        paint.beginPath();paint.arc(x*cell,y*cell,radius,0,Math.PI*2);paint.fill();
+        paint.beginPath();paint.arc(x*cell+(fine?(random()-.5)*jitterWidth:0),y*cell+(fine?(random()-.5)*jitterWidth:0),radius,0,Math.PI*2);paint.fill();
       }
     }
     paint.fillStyle=base;
@@ -72,7 +82,7 @@ export class OfficeArchitecture {
     if(pattern) {
       const angle=light>.8?45:light>.55?15:75;
       const jitter=[[-.6,.45],[.55,-.3],[-.45,-.55]][this.variant];
-      pattern.setTransform(new DOMMatrix().translateSelf(jitter[0],jitter[1]).rotateSelf(angle).scaleSelf(.2));
+      pattern.setTransform(new DOMMatrix().translateSelf(jitter[0],jitter[1]).rotateSelf(angle).scaleSelf(this.printScale));
       bank.set(key,pattern);
     }
     return pattern??undefined;
@@ -86,8 +96,8 @@ export class OfficeArchitecture {
     const n=parseInt(color.replace('#',''),16),warm=((n>>16)&255)>(n&255)+12;
     c.fillStyle=warm?'#bd775c':'#438e8c';
     const pitch=15.5,radius=pitch*Math.sqrt((warm?.11:.075)/Math.PI);
-    for(let y=0;y<8;y++)for(let x=0;x<8;x++){const d=((x*7+y*11+this.variant*3)%9)/9;c.beginPath();c.arc((x+.5)*pitch,(y+.5)*pitch,radius*(.88+d*.22),0,Math.PI*2);c.fill();}
-    const result=ctx.createPattern(cv,'repeat');if(result){const shift=[[-.6,.45],[.55,-.3],[-.45,-.55]][this.variant];result.setTransform(new DOMMatrix().translateSelf(shift[0],shift[1]).rotateSelf(warm?75:45).scaleSelf(.2));bank.set(key,result);}return result??undefined;
+    for(let y=0;y<8;y++)for(let x=0;x<8;x++){const d=((x*7+y*11+this.variant*3)%9)/9;c.beginPath();c.arc((x+.5+(this.printLevel<0?(((x*23+y*31)%17)/17-.5)*.95:0))*pitch,(y+.5+(this.printLevel<0?(((x*13+y*19)%23)/23-.5)*.95:0))*pitch,radius*(.88+d*.22),0,Math.PI*2);c.fill();}
+    const result=ctx.createPattern(cv,'repeat');if(result){const shift=[[-.6,.45],[.55,-.3],[-.45,-.55]][this.variant];result.setTransform(new DOMMatrix().translateSelf(shift[0],shift[1]).rotateSelf(warm?75:45).scaleSelf(this.printScale));bank.set(key,result);}return result??undefined;
   }
 
   /** A separate, tiny animated ink impression; static rooms and their tile cache
