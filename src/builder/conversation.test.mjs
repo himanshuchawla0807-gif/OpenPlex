@@ -1,6 +1,6 @@
 import {test} from 'node:test'
 import assert from 'node:assert/strict'
-import {projectConversation,mergeConversation} from './conversation.ts'
+import {projectConversation,mergeConversation,terminalActivity,TerminalConversationInput} from './conversation.ts'
 import {readBuilderReply} from './builderProtocol.ts'
 import {defaultProfile} from './employees.ts'
 test('Codex chrome and prompt footer stay out of chat while reply streams',()=>{
@@ -51,4 +51,37 @@ test('Codex installer menu is chrome, including wrapped replay from older app tr
  assert.deepEqual(projectConversation('› '+menu+'\n› Introduce yourself\n• I am Bruno.'),[task,answer])
  assert.deepEqual(mergeConversation([{role:'user',text:menu},task,answer],[]),[task,answer])
  assert.deepEqual(projectConversation('› 1. Update now the employee profile\n• Which role?'),[{role:'user',text:'1. Update now the employee profile'},{role:'assistant',text:'Which role?'}])
+})
+
+test('Codex activity protocol keeps streaming and idle independent of prompt chrome',()=>{
+ assert.equal(terminalActivity('state=working:app=codex'),true)
+ for(const state of ['idle','done'])assert.equal(terminalActivity(`state=${state}:app=codex`),false)
+ for(const payload of ['state=working:app=unknown','state=unknown:app=codex','Working…','state=working:app=codex;injected'])assert.equal(terminalActivity(payload),undefined)
+})
+
+
+test('terminal typing and chat bracketed pastes submit the same canonical user turns',()=>{
+ const input=new TerminalConversationInput()
+ assert.deepEqual(input.write('Hel'),[])
+ assert.deepEqual(input.write('lo!\x7f\r'),['Hello'])
+ assert.deepEqual(input.write('\x1b[200~Review this brief\nKeep the context.\x1b[201~\r'),['Review this brief\nKeep the context.'])
+ assert.deepEqual(input.write('/model\r'),[])
+ assert.deepEqual(input.write('cancelled\x03next task\r'),['next task'])
+})
+test('terminal input editing is tracked while history is left to the screen projection',()=>{
+ const input=new TerminalConversationInput()
+ assert.deepEqual(input.write('Helo\x1b[Dll\x7f\x1b[F\r'),['Hello'])
+ assert.deepEqual(input.write('unknown\x1b[A\r'),[])
+ assert.deepEqual(input.write('known again\r'),['known again'])
+ assert.deepEqual(input.write('first second\x17third\r'),['first third'])
+})
+test('partial redraws cannot discard freshly submitted terminal prompts or previous answers',()=>{
+ const first={role:'user',text:'First'},answer={role:'assistant',text:'One'},pending={role:'user',text:'Next'}
+ assert.deepEqual(mergeConversation([first,answer,pending],[first,answer]),[first,answer,pending])
+ assert.deepEqual(mergeConversation([first,answer],[first]),[first,answer])
+})
+test('assistant-only projection anchored to the latest repeated input updates that turn',()=>{
+ const first={role:'user',text:'Hello'},one={role:'assistant',text:'One'},two={role:'assistant',text:'Two'}
+ assert.deepEqual(mergeConversation([first,one,first],[first,two]),[first,one,first,two])
+ assert.deepEqual(mergeConversation([first,one,first,two],[first,{...two,text:'Two, still streaming'}]),[first,one,first,{...two,text:'Two, still streaming'}])
 })
