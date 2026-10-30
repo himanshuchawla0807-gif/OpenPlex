@@ -26,6 +26,9 @@ export class ProceduralRenderer {
   private readonly tiles=new CanvasTileCache()
   private cacheLevel=-1
   private printLevel=0
+  // Recording cameras reuse one inspection-quality set of room tiles. Rebuilding
+  // every room at each texture/LOD boundary made a smooth tween hitch for 300ms.
+  private readonly recordingCamera=import.meta.env?.DEV&&new URLSearchParams(location.search).has('recording')
   private dark=false
   get cacheBytes(){return this.tiles.bytes}
   resetSurfaces(){this.tiles.clear();this.backdrop=null;this.cacheLevel=-1}
@@ -64,17 +67,19 @@ export class ProceduralRenderer {
     const ctx=this.ctx,dpr=this.pixelRatio,state=camera.value
     const dark=document.documentElement.dataset.appearance==='dark'
     if(dark!==this.dark){this.dark=dark;this.architecture.setAppearance(dark);this.resetSurfaces()}
-    this.architecture.setScreenScale(state.zoom)
+    this.architecture.setScreenScale(this.recordingCamera ? .38 : state.zoom)
     // Both raster density and the screen-sized print belong to the cache key.
-    const rasterLevel=state.zoom<.4?0:state.zoom<.7?1:2
+    const rasterLevel=this.recordingCamera?1:state.zoom<.4?0:state.zoom<.7?1:2
     if(this.cacheLevel!==rasterLevel||this.printLevel!==this.architecture.screenLevel){this.tiles.clear();this.cacheLevel=rasterLevel;this.printLevel=this.architecture.screenLevel}
     this.team.beginFrame();this.drawBackdrop(viewport)
     ctx.setTransform(dpr*state.zoom,0,0,dpr*state.zoom,dpr*(viewport.width/2+state.x),dpr*(viewport.height/2+state.y))
-    ctx.lineCap='round';ctx.lineJoin='round';ctx.imageSmoothingEnabled=true;ctx.imageSmoothingQuality='high'
+    // Bilinear sampling stays filtered without the costly per-frame high-quality
+    // downsampling pass across hundreds of Retina room tiles.
+    ctx.lineCap='round';ctx.lineJoin='round';ctx.imageSmoothingEnabled=true;ctx.imageSmoothingQuality=this.recordingCamera?'low':'high'
     const variant=0
     // Keep the floor vector-sharp at close inspection. Cache static furniture at
     // display density; repeatedly drawing every book spine made gait playback stutter.
-    const vectorDetail=state.zoom>1.05
+    const vectorDetail=!this.recordingCamera&&state.zoom>1.05
     const ordered=[...this.definitions].sort((a,b)=>a.origin.x+a.origin.y-b.origin.x-b.origin.y)
     for(const def of ordered) {
       const origin=project(def.origin.x,def.origin.y)
@@ -95,7 +100,7 @@ export class ProceduralRenderer {
         return {...f,i:f.i+i-a.station.i}
       }
       const occupiedArtwork=(f:Furniture)=>f.kind==='chair'&&this.people.actors.some(a=>a.roomId===def.id&&f.id===`${a.station.id}-chair`&&this.team.hasOccupiedChair(a)&&(!this.preset||a.index!==13))
-      const drawFurniture=(f:Furniture)=>{if(occupiedArtwork(f))return;const positioned=chairPosition(f);if(positioned!==f||state.zoom>1.6)return this.architecture.drawFurniture(ctx,def,positioned,variant);const density=vectorDetail?Math.min(2.5,Math.ceil(state.zoom*dpr*2)/2):0;return this.drawTile(this.tile(def,f,variant,density))}
+      const drawFurniture=(f:Furniture)=>{if(occupiedArtwork(f))return;const positioned=chairPosition(f);if(positioned!==f||(!this.recordingCamera&&state.zoom>1.6))return this.architecture.drawFurniture(ctx,def,positioned,variant);const density=vectorDetail?Math.min(2.5,Math.ceil(state.zoom*dpr*2)/2):0;return this.drawTile(this.tile(def,f,variant,density))}
       const chairDepth=(f:Furniture)=>{
         const depth=this.architecture.depth(chairPosition(f))
         if(f.kind!=='chair')return depth

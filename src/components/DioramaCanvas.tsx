@@ -126,9 +126,11 @@ export const DioramaCanvas = forwardRef<DioramaCanvasHandle, DioramaCanvasProps>
       const fullMotion = new URLSearchParams(window.location.search).get('motion') === 'full'
       let lastFrame = 0
       let lastReport = 0
+      let lastZoomReport=0
       let animationFrame = 0
       let mounted = true
       const frameIntervals:number[]=[],renderCosts:number[]=[]
+      let moveStats:{mode:string;start:number;last:number;intervals:number[];costs:number[];builds:number}|null=null
       let measuredTimestamp=0
       const seek=(event:Event)=>{const d=(event as CustomEvent<{world:number;bruno:number;play?:boolean}>).detail;if(!d)return;renderer.seekReview(d.world,d.bruno);if(d.play)renderer.resumeReview();lastReport=-Infinity}
       if(new URLSearchParams(location.search).has('review'))window.addEventListener('office-review-seek',seek)
@@ -137,6 +139,7 @@ export const DioramaCanvas = forwardRef<DioramaCanvasHandle, DioramaCanvasProps>
         const {room,mode}=(event as CustomEvent<{room?:string;mode?:string}>).detail??{}
         const targets=room?rooms.filter(r=>r.id===room):rooms
         if(!targets.length)return
+        moveStats={mode:mode??'reference',start:performance.now(),last:0,intervals:[],costs:[],builds:renderer.backgroundRebuilds}
         const to=fitCameraToRooms(viewportRef.current,targets),from={...cameraRef.current.value}
         cameraWasMovedRef.current=true;zoomTargetRef.current=null
         const distance=Math.hypot(to.x/to.zoom-from.x/from.zoom,to.y/to.zoom-from.y/from.zoom)
@@ -203,7 +206,8 @@ export const DioramaCanvas = forwardRef<DioramaCanvasHandle, DioramaCanvasProps>
           const z=(tween.from.zoom+(tween.to.zoom-tween.from.zoom)*e)*(1-Math.sin(u*Math.PI)*tween.lift)
           const x=tween.from.x/tween.from.zoom+(tween.to.x/tween.to.zoom-tween.from.x/tween.from.zoom)*e
           const y=tween.from.y/tween.from.zoom+(tween.to.y/tween.to.zoom-tween.from.y/tween.from.zoom)*e
-          cameraRef.current.reset({x:x*z,y:y*z,zoom:z});onZoomChangeRef.current(z)
+          cameraRef.current.reset({x:x*z,y:y*z,zoom:z})
+          if(timestamp-lastZoomReport>100||u===1){lastZoomReport=timestamp;onZoomChangeRef.current(z)}
           if(u===1)recordingTween.current=null
         }
         const zoomTarget=zoomTargetRef.current
@@ -219,6 +223,15 @@ export const DioramaCanvas = forwardRef<DioramaCanvasHandle, DioramaCanvasProps>
         renderer.update(delta,reducedMotion)
         const interaction = interactionRef.current
         renderer.render(viewportRef.current,cameraRef.current,reducedMotion,interaction.hoveredRoomId,interaction.selectedRoomId)
+        if(moveStats){
+          if(moveStats.last)moveStats.intervals.push(timestamp-moveStats.last)
+          moveStats.last=timestamp;moveStats.costs.push(performance.now()-renderStarted)
+          if(!recordingTween.current){
+            const sorted=[...moveStats.intervals].sort((a,b)=>a-b),costs=[...moveStats.costs].sort((a,b)=>a-b),round=(n:number)=>Math.round(n*100)/100
+            canvas.dataset.cameraMove=JSON.stringify({mode:moveStats.mode,frames:sorted.length,fps:sorted.length?round(1000*sorted.length/moveStats.intervals.reduce((a,b)=>a+b,0)):0,p95FrameMs:round(sorted[Math.floor(sorted.length*.95)]??0),maxFrameMs:round(sorted.at(-1)??0),p95RenderMs:round(costs[Math.floor(costs.length*.95)]??0),backgroundRebuilds:renderer.backgroundRebuilds-moveStats.builds,elapsedMs:round(performance.now()-moveStats.start),viewport:viewportRef.current,dpr:pixelRatio})
+            moveStats=null
+          }
+        }
         if(renderer.ready) {
           if(measuredTimestamp) {
             const interval=timestamp-measuredTimestamp
