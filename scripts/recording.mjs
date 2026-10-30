@@ -4,7 +4,7 @@ import {createServer} from 'node:http'
 import {randomBytes} from 'node:crypto'
 import {mkdirSync,writeFileSync,existsSync,copyFileSync,chmodSync} from 'node:fs'
 import {resolve} from 'node:path'
-const root=resolve('output/recording'),workspace=resolve(root,'workspace'),origin='http://127.0.0.1:5180',token=randomBytes(32).toString('hex')
+const root=resolve('output/recording'),workspace=resolve(process.env.OPENPLEX_RECORDING_FOLDER||resolve(root,'workspace')),origin='http://127.0.0.1:5180',token=randomBytes(32).toString('hex')
 mkdirSync(workspace,{recursive:true});mkdirSync(root+'/native',{recursive:true})
 if(!existsSync(root+'/bridge')){
  copyFileSync('scripts/recording-bridge.swift',root+'/native/main.swift')
@@ -18,9 +18,10 @@ const quote=s=>"'"+s.replaceAll("'","'\\''")+"'"
 writeFileSync(root+'/codex-recording',`#!/bin/sh\nexec ${quote(codex)} -m ${quote(process.env.OPENPLEX_RECORDING_MODEL||'gpt-6-luna')} -c 'model_reasoning_effort="low"' -c check_for_update_on_startup=false -c project_doc_max_bytes=0 -c mcp_servers.computer-use.enabled=false -c mcp_servers.node_repl.enabled=false -c mcp_servers.rea.enabled=false -c mcp_servers.context7.enabled=false "$@"\n`)
 chmodSync(root+'/codex-recording',0o700)
 writeFileSync('output/recording-bridge.js',`const token=${JSON.stringify(token)},base='http://127.0.0.1:5193';
+const cursorResponse=await fetch(base+'/cursor',{headers:{'X-Recording-Token':token}});if(!cursorResponse.ok)throw Error('Recording bridge unavailable');let since=(await cursorResponse.json()).cursor;
 const key='small-office.projects.v1',projects=JSON.parse(localStorage.getItem(key)||'[]');for(const p of projects)if(p.id==='openplex-recording-v1')p.workingDirectory=${JSON.stringify(workspace)};localStorage.setItem(key,JSON.stringify(projects));
 window.webkit={messageHandlers:{openplex:{postMessage(data){fetch(base+'/command',{method:'POST',headers:{'X-Recording-Token':token,'Content-Type':'application/json'},body:JSON.stringify(data)}).catch(console.error)}}}};
-let since=0;setInterval(async()=>{try{const r=await fetch(base+'/events?since='+since,{headers:{'X-Recording-Token':token}});for(const e of await r.json()){since=e.seq;window.dispatchEvent(new CustomEvent(e.name,{detail:e.detail}))}}catch{}},80);
+setInterval(async()=>{try{const r=await fetch(base+'/events?since='+since,{headers:{'X-Recording-Token':token}});for(const e of await r.json()){since=e.seq;window.dispatchEvent(new CustomEvent(e.name,{detail:e.detail}))}}catch{}},80);
 `)
 const child=spawn(root+'/bridge',[workspace,root+'/codex-recording'],{stdio:['pipe','pipe','inherit']})
 let pending='',events=[],sequence=0,closing=false
@@ -29,6 +30,7 @@ const server=createServer(async(req,res)=>{
  if(req.headers.origin!==origin||req.method!=='OPTIONS'&&req.headers['x-recording-token']!==token){res.writeHead(403);res.end();return}
  res.setHeader('Access-Control-Allow-Origin',origin);res.setHeader('Access-Control-Allow-Headers','X-Recording-Token,Content-Type');res.setHeader('Access-Control-Allow-Methods','GET,POST,OPTIONS')
  if(req.method==='OPTIONS'){res.end();return}
+ if(req.method==='GET'&&req.url==='/cursor'){res.setHeader('Content-Type','application/json');res.end(JSON.stringify({cursor:sequence}));return}
  if(req.method==='GET'&&req.url.startsWith('/events?')){const since=Number(new URL(req.url,'http://localhost').searchParams.get('since'))||0;res.setHeader('Content-Type','application/json');res.end(JSON.stringify(events.filter(e=>e.seq>since)));return}
  if(req.method!=='POST'||req.url!=='/command'){res.writeHead(404);res.end();return}
  let raw='';for await(const chunk of req){raw+=chunk;if(raw.length>200000){res.writeHead(413);res.end();return}}

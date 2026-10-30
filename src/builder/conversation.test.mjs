@@ -1,6 +1,6 @@
 import {test} from 'node:test'
 import assert from 'node:assert/strict'
-import {projectConversation,mergeConversation,terminalActivity,TerminalConversationInput} from './conversation.ts'
+import {projectConversation,mergeConversation,mergeSubmittedConversation,terminalActivity,TerminalConversationInput} from './conversation.ts'
 import {readBuilderReply} from './builderProtocol.ts'
 import {defaultProfile} from './employees.ts'
 test('Codex chrome and prompt footer stay out of chat while reply streams',()=>{
@@ -95,4 +95,21 @@ test('hollow working spinner redraws never become repeated user messages',()=>{
  saved=mergeConversation(saved,projectConversation(`› ${prompt.text}\n• The checklist is drafted.`))
  assert.deepEqual(saved,[prompt,{role:'assistant',text:'The checklist is drafted.'}])
  assert.deepEqual(mergeConversation([prompt,{role:'user',text:prompt.text+'\n\n◦ Working (1s • esc to interrupt)'}],[]),[prompt])
+})
+
+test('narrow terminal redraws cannot turn an accepted prompt into phantom user turns',()=>{
+ const old={role:'user',text:'Earlier request'},previous={role:'assistant',text:'Earlier reply'}
+ const prompt={role:'user',text:'Please describe this fictional launch and the next handoff.'}
+ const answer={role:'assistant',text:'The checklist is drafted. Next comes the review.'}
+ const corrupted={role:'user',text:prompt.text+' Next comes the review.'}
+ const saved=[old,previous,prompt,answer,corrupted]
+ assert.deepEqual(mergeSubmittedConversation(saved,[prompt,answer,corrupted],2,prompt),[old,previous,prompt,answer])
+ assert.deepEqual(mergeSubmittedConversation(saved,[corrupted,answer],2,prompt),[old,previous,prompt,answer])
+ assert.deepEqual(mergeSubmittedConversation([old,previous,prompt],[old,previous],2,prompt),[old,previous,prompt])
+})
+
+test('a composer paste is canonical even after terminal device-response traffic',()=>{
+ const input=new TerminalConversationInput()
+ input.write('\x1b[?1;2c')
+ assert.deepEqual(input.write('\x1b[200~Please summarize the demo.\x1b[201~\r'),['Please summarize the demo.'])
 })

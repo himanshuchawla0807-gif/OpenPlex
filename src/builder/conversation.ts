@@ -61,6 +61,20 @@ export function mergeConversation(saved:ConversationMessage[],live:ConversationM
  return result.slice(-100)
 }
 
+/** A directly submitted turn has a known position independent of TUI redraws.
+ * Narrow Codex panes can repaint answer fragments on the wrapped prompt line.
+ * Those fragments must never turn one accepted input into several user turns. */
+export function mergeSubmittedConversation(saved:ConversationMessage[],live:ConversationMessage[],index:number,prompt:ConversationMessage):ConversationMessage[]{
+ if(index<0||index>=saved.length)return mergeConversation(saved,live)
+ const normalize=(text:string)=>text.replace(/\s+/g,' ').trim()
+ const canonical=normalize(prompt.text)
+ const exact=live.findLastIndex(m=>m.role==='user'&&normalize(m.text)===canonical)
+ const found=exact>=0?exact:live.findLastIndex(m=>m.role==='user'&&normalize(m.text).startsWith(canonical+' '))
+ if(found<0&&live.some(m=>m.role==='user'))return saved
+ const answers=(found<0?live:live.slice(found+1)).filter(m=>m.role==='assistant')
+ return [...saved.slice(0,index),prompt,...(answers.length?answers:saved.slice(index+1).filter(m=>m.role==='assistant'))].slice(-100)
+}
+
 /** Tracks accepted terminal input as well as composer pastes. This is deliberately
  * independent of CLI screen redraws: a submitted prompt must survive resizing or
  * a renderer which removes that prompt from its visible screen. History/search
@@ -75,7 +89,7 @@ export class TerminalConversationInput {
     if(this.escape==='\x1b[')continue
     if(this.escape.startsWith('\x1b[')&&!/[A-Za-z~]$/.test(this.escape))continue
     const sequence=this.escape;this.escape=''
-    if(sequence==='\x1b[200~')this.pasting=true
+    if(sequence==='\x1b[200~'){this.pasting=true;this.known=true;this.text='';this.cursor=0}
     else if(sequence==='\x1b[201~')this.pasting=false
     else if(sequence==='\x1b[D')this.cursor=Math.max(0,this.cursor-1)
     else if(sequence==='\x1b[C')this.cursor=Math.min(this.text.length,this.cursor+1)

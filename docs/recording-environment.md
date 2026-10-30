@@ -2,6 +2,8 @@
 
 Start `npm run dev:builder` and, in another terminal, `npm run recording`. Open either local page:
 
+To use the same folder as your existing office, start the bridge with `OPENPLEX_RECORDING_FOLDER="/absolute/path/to/your/folder" npm run recording`. Only the recording sandbox's folder binding changes; existing offices are left intact.
+
 - Room-by-room camera: http://127.0.0.1:5180/?builder&recording=reference&motion=full
 - Cinematic camera: http://127.0.0.1:5180/?builder&recording=cinematic&motion=full
 
