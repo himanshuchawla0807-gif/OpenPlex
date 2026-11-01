@@ -4,6 +4,7 @@
   "version": "0.1.0",
   "type": "module",
   "scripts": {
+    "build:site": "node website/build.mjs",
     "check:release": "node scripts/check-release.mjs",
     "test": "node --experimental-strip-types --test --test-isolation=none scripts/living-world.test.ts scripts/office-team.test.ts scripts/campus.test.ts scripts/character-motion.test.ts scripts/procedural.test.ts scripts/bruno-rig.test.ts scripts/bruno-sprite.test.ts scripts/office-tasks.test.ts scripts/campus-redesign.test.ts",
     "dev": "vite",

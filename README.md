@@ -2,11 +2,11 @@
   <img src="public/brand/openplex-logo.png" width="150" alt="OpenPlex logo" />
 </p>
 <h1 align="center">OpenPlex</h1>
-<p align="center"><strong>A place for your AI coworkers to get to work.</strong></p>
+<p align="center"><strong>AI, with character.</strong></p>
 <p align="center">Local offices. Distinct characters. Real coding harnesses.</p>
-<p align="center"><a href="#get-started">Get started</a> · <a href="docs/getting-started.md">Set up Codex</a> · <a href="docs/office-communicate.md">Office Communicate</a> · <a href="SECURITY.md">Security & privacy</a></p>
+<p align="center"><a href="https://oriplex.tech">Website</a> · <a href="https://oriplex.tech/docs/">Install OpenPlex</a> · <a href="docs/getting-started.md">Set up Codex</a> · <a href="docs/office-communicate.md">Office Communicate</a> · <a href="SECURITY.md">Security & privacy</a></p>
 
-OpenPlex gives your agents a place you can actually see. Build an office, choose your coworkers, give each one a role, and open their chat or terminal when it is time to work. Your people can share a workspace without sharing a single tangled conversation.
+OpenPlex is a free, open-source workspace for AI characters and the coding harnesses you already use. Choose a character, give it a role, and open its chat or terminal when it is time to work. Illustrated rooms help organize your agents; each keeps its own configuration and conversation.
 
 This is an early, source-first release for macOS. The interface also runs in a browser, but native terminal sessions and folder access require the Mac app. Bring your own installed harness and sign-in; OpenPlex does not include model credits or promise unlimited inference.
 
@@ -113,7 +113,7 @@ Contributions are welcome. Start with [CONTRIBUTING.md](CONTRIBUTING.md); report
 
 OpenPlex code and project-generated artwork are offered under the [MIT license](LICENSE), to the extent the contributors hold applicable rights. Provider marks retain their owners’ rights. Fonts carry their own open-font licences. Clayzo is a separately licensed dependency, not MIT-licensed OpenPlex code; its SDK is not vendored here. See [third-party notices](THIRD_PARTY_NOTICES.md) and [artwork provenance](ARTWORK.md).
 
-The screenshots use demonstration offices and intentionally prepared tasks. A video walkthrough will be added later.
+The screenshots use demonstration offices and intentionally prepared tasks. The [landing page source](website/README.md) includes a visual tour and a complete installation guide; build it with `npm run build:site`. Recent updates keep Chat and Terminal on the same conversation and move recording cameras at display frame rate. See the [recording environment](docs/recording-environment.md) for the isolated local demo setup.
 
 ## Contributors
 

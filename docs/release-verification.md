@@ -2,6 +2,8 @@
 
 This record describes the October 2026 source release. OpenPlex is a beta. These are controlled tests and a source-informed review, not an independent penetration test or a guarantee that all vulnerabilities have been found.
 
+November 1 documentation/website update: the current application build, all 72 builder tests, Oxlint, and the release pattern scan passed. The new landing page and setup documentation were checked on desktop and mobile; see [website launch verification](website-launch.md). Native and security results below retain their original October scope and were not re-certified by this website update.
+
 ## Automated checks
 
 | Check | Local result | What it establishes |
