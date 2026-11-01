@@ -8,7 +8,7 @@
 
 OpenPlex is a free, open-source workspace for AI characters and the coding harnesses you already use. Choose a character, give it a role, and open its chat or terminal when it is time to work. Illustrated rooms help organize your agents; each keeps its own configuration and conversation.
 
-This is an early, source-first release for macOS. The interface also runs in a browser, but native terminal sessions and folder access require the Mac app. Bring your own installed harness and sign-in; OpenPlex does not include model credits or promise unlimited inference.
+This is an early macOS beta. A [downloadable DMG for Apple Silicon](https://github.com/himanshuchawla0807-gif/OpenPlex/releases/download/v0.1.0-beta.1/OpenPlex-0.1.0-beta.1-macOS-arm64.dmg) is available; it is ad-hoc signed and **not Apple notarized**, so macOS may block first launch. See the [download and signing notes](docs/macos-download.md). The interface also runs in a browser, but native terminal sessions and folder access require the Mac app. Bring your own installed harness and sign-in; OpenPlex does not include model credits or promise unlimited inference.
 
 ## A small tour
 
@@ -37,6 +37,10 @@ Each supported employee answers through a **separate reporting request** using a
 This is not autonomous company management. Cross-office orchestration, a manager hierarchy and shared/vector memory are future work, not hidden features of this release.
 
 ## Get started
+
+For Apple Silicon Macs running macOS 13+, [download the beta DMG](https://github.com/himanshuchawla0807-gif/OpenPlex/releases/tag/v0.1.0-beta.1), drag OpenPlex to Applications, and follow the [setup guide](https://oriplex.tech/docs/). Node.js and Swift are not needed to launch the prebuilt app. The beta is unnotarized; keep Gatekeeper enabled and review the release's signing limitations.
+
+To build from source:
 
 You need **Node.js 24 or newer**, npm, and **macOS 13 or newer with Swift command-line tools** for the desktop app. The first clone includes a few hundred megabytes of character artwork.
 

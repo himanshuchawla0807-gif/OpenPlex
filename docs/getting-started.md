@@ -4,6 +4,8 @@ OpenPlex is easiest to understand with one employee and one small task. You can 
 
 ## Build the Mac app
 
+For a prebuilt Apple Silicon beta, use the [Mac download](macos-download.md). Open the DMG and drag the app to Applications. That package is ad-hoc signed and unnotarized; macOS may block first launch. The source-build path remains below.
+
 Install Node.js 24+, npm, and Apple's Swift command-line tools. Clone the repository, run `npm ci`, then `npm run app:build`. The build creates `output/OpenPlex.app`; it does not install a system-wide app or bundle any vendor CLI. Open it with `open output/OpenPlex.app`.
 
 The app starts with three welcome pages. Choose Light, Dark or System. System follows your Mac's current appearance; the selection can be changed later.

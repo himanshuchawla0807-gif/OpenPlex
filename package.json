@@ -19,6 +19,7 @@
     "test:employee-workspace": "sh scripts/test-employee-workspace.sh",
     "test:http": "sh scripts/test-workspace-http.sh",
     "app:build": "bash native/OpenPlex/build.sh",
+    "app:dmg": "bash scripts/package-dmg.sh",
     "app:open": "open output/OpenPlex.app",
     "recording": "node scripts/recording.mjs"
   },
