@@ -1,14 +1,10 @@
 # Launch post
 
-Your AI agents deserve more than another terminal tab.
+I built OpenPlex to give my AI agents some character.
 
-Meet OpenPlex.
+Pick from 40 characters. Set their roles and instructions. Run Codex or Claude Code, switch between chat and terminal, and ask the team for updates.
 
-40 characters. Your roles and instructions. Codex or Claude Code underneath.
-
-Chat, use the terminal, or ask the team what’s happening.
-
-Free. Open source. Mac beta.
+Free and open source. Mac beta out now.
 
 https://oriplex.tech
 

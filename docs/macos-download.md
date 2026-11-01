@@ -21,3 +21,15 @@ npm run app:dmg -- 0.1.0-beta.1
 The packaging script validates the app signature, scans the bundle for credential patterns, copies only the app and public release documents into a temporary staging folder, adds the standard Applications shortcut, creates a compressed read-only DMG, verifies it, and writes a SHA-256 checksum. It refuses to overwrite an existing version. The source commit is recorded inside BUILD-INFO.txt.
 
 No harness, provider authentication, app storage, project folder, or conversation is included. Pattern scanning is not proof that no vulnerability exists. Package verification and native fixture tests are separate from clean-machine, authenticated-provider, and Gatekeeper first-launch testing.
+
+## First beta verification
+
+The downloadable image was built from clean tracked source at `9a249dac70489769444724b905c9884dc54c0324`. GitHub CI and the native runtime, PTY, employee workspace and loopback HTTP fixtures passed. The app bundle scan checked 281 files without matching credential patterns. DMG verification passed, and all 281 mounted app file hashes matched the build. Its linked dynamic libraries are system frameworks and Swift libraries.
+
+SHA-256 of `OpenPlex-0.1.0-beta.1-macOS-arm64.dmg`:
+
+```text
+6e511c1c9d7d8f326d0eb0a9e426953cc279e48ccbd0677e30eb5fbff0e36991
+```
+
+The package's ad-hoc signature verified, and `spctl` rejected it as expected because no Developer ID/notarization is present. That result is not described as a Gatekeeper pass. The user's running OpenPlex instance was not stopped or modified to test this package. No new clean-machine GUI launch pass is claimed.

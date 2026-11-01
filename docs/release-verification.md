@@ -4,6 +4,8 @@ This record describes the October 2026 source release. OpenPlex is a beta. These
 
 November 1 documentation/website update: the current application build, all 72 builder tests, Oxlint, and the release pattern scan passed. The new landing page and setup documentation were checked on desktop and mobile; see [website launch verification](website-launch.md). Native and security results below retain their original October scope and were not re-certified by this website update.
 
+November 1 downloadable beta: native runtime, PTY, employee workspace and local HTTP fixtures were rerun and passed. An Apple Silicon DMG is available as an explicitly unnotarized prerelease. Its integrity, mounted file hashes and signing limitations are recorded in [Mac download verification](macos-download.md). This does not clear the production signing, clean-machine or independent-security gates below.
+
 ## Automated checks
 
 | Check | Local result | What it establishes |
