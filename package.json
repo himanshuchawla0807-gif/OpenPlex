@@ -21,11 +21,16 @@
     "app:build": "bash native/OpenPlex/build.sh",
     "app:dmg": "bash scripts/package-dmg.sh",
     "app:open": "open output/OpenPlex.app",
-    "recording": "node scripts/recording.mjs"
+    "recording": "node scripts/recording.mjs",
+    "test:v2": "node --experimental-strip-types --test src/v2/domain.test.mjs src/v2/controller.test.mjs",
+    "test:v2-store": "bash scripts/test-coordination-store.sh",
+    "test:v2-e2e": "bash scripts/test-v2-e2e.sh",
+    "app:v2": "OPENPLEX_APP_DESTINATION=\"$PWD/output/OpenPlex-v2.app\" bash native/OpenPlex/build.sh"
   },
   "dependencies": {
     "@clayzo/animation": "^0.3.17",
     "@clayzo/webgl-player": "^0.3.17",
+    "@langchain/langgraph": "1.6.0",
     "@xterm/addon-fit": "^0.11.0",
     "@xterm/xterm": "^6.0.0",
     "pdfjs-dist": "^6.4.299",

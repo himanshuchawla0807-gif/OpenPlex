@@ -38,6 +38,11 @@ This is not autonomous company management. Cross-office orchestration, a manager
 
 ## Get started
 
+On the `codex/v2-coordination` development branch, the experimental **V2 lab** adds
+a local task ledger, reporting lines and scoped knowledge. See the [pilot guide](docs/v2-coordination-pilot.md)
+for the separate local build, verified behavior and remaining work. It is not a
+public v2 release or an autonomous business operator.
+
 For Apple Silicon Macs running macOS 13+, [download the beta DMG](https://github.com/himanshuchawla0807-gif/OpenPlex/releases/tag/v0.1.0-beta.1), drag OpenPlex to Applications, and follow the [setup guide](https://oriplex.tech/docs/). Node.js and Swift are not needed to launch the prebuilt app. The beta is unnotarized; keep Gatekeeper enabled and review the release's signing limitations.
 
 To build from source:

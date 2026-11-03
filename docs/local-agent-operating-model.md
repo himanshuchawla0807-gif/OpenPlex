@@ -1,5 +1,9 @@
 # OpenPlex local agent operating model
 
+Implementation update, 4 November 2026: the [V2 coordination pilot](v2-coordination-pilot.md)
+implements the first bounded task/knowledge slice on a development branch. The
+design below remains the broader target; it is not all enabled by the pilot.
+
 Design proposal · 23 October 2026. **Not implemented.** This document does not install a runtime, start agents, change permissions or enable shared memory. The texture and Scroll button changes are separate UI work.
 
 ## Decision

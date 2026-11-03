@@ -34,10 +34,10 @@ final class AgentRuntime {
         queue.async { [self] in
             guard let key=body["key"] as? String, key.count<400 else { return }
             func fail(_ message:String) { send(["key":key,"kind":"error","text":message]) }
-            let reporting=key.hasPrefix("status:")
-            let reports=jobs.keys.filter{$0.hasPrefix("status:")}.count
+            let reporting=key.hasPrefix("status:") || key.hasPrefix("v2:")
+            let reports=jobs.keys.filter{$0.hasPrefix("status:") || $0.hasPrefix("v2:")}.count
             guard reporting ? reports<2 : jobs.count-reports<12 else {fail(reporting ? "Two status reports are already running. Wait for a reply before asking again.":"Twelve employee tasks are already running. Finish or stop one before starting another.");return}
-            let owner=key.hasPrefix("room:") ? (body["ownerKey"] as? String ?? key):key
+            let owner=(key.hasPrefix("room:") || key.hasPrefix("v2:")) ? (body["ownerKey"] as? String ?? key):key
             guard owner.count<400 else {fail("Invalid employee identity.");return}
             guard jobs[key]==nil,jobs[owner]==nil,!owners.values.contains(owner) else { fail("This employee already has a running task.");return }
             let harness=body["harness"] as? String ?? "codex"
@@ -101,6 +101,16 @@ final class AgentRuntime {
                 read(output.fileHandleForReading,key:key,errors:false);read(errors.fileHandleForReading,key:key,errors:true)
                 _ = fcntl(input.fileHandleForWriting.fileDescriptor,F_SETNOSIGPIPE,1)
                 send(["key":key,"kind":"started","text":"\(providerName) started in \(directory)."])
+                if key.hasPrefix("v2:") {
+                    // Enforce the pilot deadline even if WebKit is hidden or hung.
+                    let deadline=(body["leaseUntil"] as? Double ?? Date().timeIntervalSince1970*1000+600000)/1000
+                    queue.asyncAfter(deadline:.now()+max(0,min(600,deadline-Date().timeIntervalSince1970))) { [weak self] in
+                        guard let self,let current=self.jobs[key],current.process===process,current.process.isRunning else{return}
+                        self.failedTasks.insert(key)
+                        self.send(["key":key,"kind":"error","text":"The v2 execution deadline expired. Reconcile this attempt before retrying."])
+                        self.stop(key)
+                    }
+                }
                 let context=body["context"] as? String ?? ""
                 let payload="Employee configuration:\n\(brief)\(context.isEmpty ? "":"\n\nShared context for this room only:\n\(String(context.prefix(100000)))")\n\nUser task:\n\(prompt)"
                 DispatchQueue.global(qos:.userInitiated).async { try? input.fileHandleForWriting.write(contentsOf:Data(payload.utf8));try? input.fileHandleForWriting.close() }

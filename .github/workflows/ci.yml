@@ -17,6 +17,7 @@ jobs:
           cache: npm
       - run: npm ci
       - run: npm run test:builder
+      - run: npm run test:v2
       - run: npm test
       - run: npm run lint
       - run: npm run build
@@ -36,6 +37,8 @@ jobs:
           cache: npm
       - run: npm ci
       - run: npm run test:native
+      - run: npm run test:v2-store
+      - run: npm run test:v2-e2e
       - run: npm run test:terminal
       - run: npm run test:employee-workspace
       - run: npm run test:http

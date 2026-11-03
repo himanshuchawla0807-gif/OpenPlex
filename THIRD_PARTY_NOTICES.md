@@ -1,5 +1,15 @@
 # Third-party notices
 
+## V2 local coordination pilot
+
+The v2 branch pins `@langchain/langgraph` 1.6.0 (MIT). Its browser graph prepares
+bounded task envelopes; OpenPlex's native SQLite service stores the authoritative
+task and knowledge state. No LangSmith account or hosted graph service is required.
+This library adds no model credits; installed harnesses retain their provider terms.
+SQLite is supplied by macOS and is in the public domain. Exact transitive versions
+and their declared licenses are recorded in package-lock.json. Bundled package
+license texts are collected in the generated app's `Resources/Notices` directory.
+
 The project depends on `@clayzo/animation` and `@clayzo/webgl-player` 0.3.17. These are governed by the proprietary Clayzo SDK License supplied in each package's `LICENSE.md`, not by this project's MIT license. The authorized, unmodified browser playback runtime is embedded in the application. The project-authored animation documents and modern office drawing code are separate from the SDK implementation. Official resources: https://www.clayzo.com/ and https://docs.clayzo.com/.
 
 The earlier raster rooms and atlas remain as historical assets; the active scene does not load them. The preserved third-party reference under `reference-lab/a-small-light` has separate provenance notes and no assumed redistribution license. It is not part of the office production bundle.

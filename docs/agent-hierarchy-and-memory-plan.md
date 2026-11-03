@@ -1,5 +1,9 @@
 # OpenPlex: agent hierarchy and shared memory
 
+Development update, 4 November 2026: see the [working V2 pilot](v2-coordination-pilot.md)
+for implemented task policy, local SQLite knowledge, native adapters and actual
+verification. The full autonomous hierarchy below remains a staged proposal.
+
 Research proposal, 22 October 2026. This document does not enable delegation or shared memory in the app.
 
 ## Structure

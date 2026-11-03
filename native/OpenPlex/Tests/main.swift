@@ -132,3 +132,29 @@ do{_ = try AgentRuntime.statusMCPOverrides(json:Data("{}".utf8));fatalError("Mal
 print("PASS: status MCP isolation validates inventory, rejects ambiguous server names and never includes credentials")
 
 do{_ = try AgentRuntime.statusMCPOverrides(json:Data("[{\"name\":\"nested.server\"}]".utf8));fatalError("Ambiguous dotted server name accepted")}catch{}
+
+// The v2 pilot uses a fresh tool-free context and reserves the actual employee.
+var v2Started=false,v2OwnerRejected=false,v2Finished=false
+let v2Key="v2:fixture:"+UUID().uuidString
+var v2Request=request(v2Key,"STATUS_PROBE LONG_TASK");v2Request["ownerKey"]="v2-owner"
+runtime.emit={event in
+ let key=event["key"] as? String,kind=event["kind"] as? String
+ if key==v2Key,kind=="started" {v2Started=true;assert(runtime.hasRunningTask("v2-owner"));runtime.run(request("v2-owner"),allowedDirectories:[folder.path])}
+ if key=="v2-owner",kind=="error" {v2OwnerRejected=true;runtime.stop(v2Key)}
+ if key==v2Key,kind=="finished" {v2Finished=true}
+}
+runtime.run(v2Request,allowedDirectories:[folder.path])
+let v2Deadline=Date().addingTimeInterval(8)
+while !v2Finished && Date()<v2Deadline {RunLoop.main.run(until:Date().addingTimeInterval(0.02))}
+assert(v2Started&&v2OwnerRejected&&v2Finished);assert(!runtime.hasRunningTask("v2-owner"))
+var v2Claude=claudeRequest("v2:fixture:claude","STATUS_PROBE");v2Claude["ownerKey"]="v2-claude-owner"
+assert(collect(v2Claude,runner:claudeRuntime).last?["exitCode"] as? Int==0)
+v2Request=request("v2:fixture:mcp","STATUS_PROBE");v2Request["mcp"]="{\"unsafe\":{\"command\":\"node\"}}"
+assert(collect(v2Request).first?["kind"] as? String=="error")
+print("PASS: v2 fresh tool-free Codex/Claude contexts, employee-owner exclusion, stop/release and MCP denial")
+var deadlineRequest=request("v2:fixture:deadline","STATUS_PROBE LONG_TASK");deadlineRequest["ownerKey"]="deadline-owner";deadlineRequest["leaseUntil"]=(Date().timeIntervalSince1970+0.3)*1000
+let deadlineEvents=collect(deadlineRequest)
+assert(deadlineEvents.contains{($0["text"] as? String)?.contains("deadline expired")==true})
+assert(deadlineEvents.last?["exitCode"] as? Int != 0)
+assert(!runtime.hasRunningTask("deadline-owner"))
+print("PASS: native v2 deadline interrupts an owned worker without a WebKit timer")

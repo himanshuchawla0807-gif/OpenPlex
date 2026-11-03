@@ -99,6 +99,8 @@ struct WorkspaceView: NSViewRepresentable {
         private var quitObserver: NSObjectProtocol?
         private let runtime=AgentRuntime()
         private let terminals=HarnessTerminal()
+        private let coordinationStore=CoordinationStore()
+        private let coordinationQueue=DispatchQueue(label:"OpenPlex.V2Storage")
         private var toolApprovalPending=false
         private var attachmentPanel:NSOpenPanel?
         private var allowedDirectories=Set(UserDefaults.standard.stringArray(forKey:"OpenPlex.authorizedDirectories") ?? [])
@@ -130,11 +132,22 @@ struct WorkspaceView: NSViewRepresentable {
         private func handle(_ value:[String:Any]) {
             var body=value
             guard let action=body["action"] as? String else{return}
+            if action=="coordination" {
+                let request=body,allowed=allowedDirectories
+                coordinationQueue.async { [weak self] in
+                    guard let self else{return}
+                    let result:[String:Any]
+                    do {result=try self.coordinationStore.handle(request,allowedDirectories:allowed)}
+                    catch {result=["requestId":request["requestId"] as? String ?? "","projectId":request["projectId"] as? String ?? "","error":error.localizedDescription]}
+                    DispatchQueue.main.async {self.dispatch("openplex-coordination",result)}
+                }
+                return
+            }
             if action=="set-appearance",let value=body["appearance"] as? String,["system","light","dark"].contains(value) {UserDefaults.standard.set(value,forKey:"openplex.appearance");return}
             if ["prepare-employee","run","terminal-open"].contains(action),body["profile"] != nil {
                 do {
                     var preparationBody=body
-                    if (body["key"] as? String)?.hasPrefix("room:")==true,let owner=body["ownerKey"] as? String {preparationBody["key"]=owner}
+                    if let key=body["key"] as? String,(key.hasPrefix("room:") || key.hasPrefix("v2:")),let owner=body["ownerKey"] as? String {preparationBody["key"]=owner}
                     let folder=try EmployeeWorkspace.prepare(preparationBody,allowedDirectories:allowedDirectories)
                     allowedDirectories.insert(folder)
                     if let key=body["key"] as? String {dispatch("openplex-employee",["key":key,"kind":"prepared","directory":folder,"text":"Employee configuration is ready. Connect the harness to start working."])}
@@ -150,6 +163,11 @@ struct WorkspaceView: NSViewRepresentable {
             if action=="status-snapshot",let key=body["key"] as? String,key.count<400,let requestId=body["requestId"] as? String,UUID(uuidString:requestId) != nil {dispatch("openplex-status-snapshot",["key":key,"requestId":requestId,"text":terminals.statusSnapshot(key),"capturedAt":Date().timeIntervalSince1970*1000]);return}
             if action=="harness-inventory" {dispatch("openplex-harnesses",["items":HarnessTerminal.inventory()]);dispatch("openplex-terminal",["kind":"inventory","keys":terminals.activeKeys()]);return}
             if action=="run" {
+                if let key=body["key"] as? String,key.hasPrefix("v2:") {
+                    do {
+                        body["leaseUntil"]=try coordinationStore.claimRun(body,allowedDirectories:allowedDirectories)
+                    } catch {dispatch("openplex-agent",["key":key,"kind":"error","text":error.localizedDescription]);return}
+                }
                 if let key=body["key"] as? String,terminals.hasSession(body["ownerKey"] as? String ?? key) {dispatch("openplex-agent",["key":key,"kind":"error","text":"Close this employee's interactive terminal before running a streamed task."])}
                 else {runtime.run(body,allowedDirectories:allowedDirectories)}
             }

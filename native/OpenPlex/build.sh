@@ -20,6 +20,7 @@ cp "$script_dir/Resources/AppIcons/AppIconLight.png" "$app_dir/Contents/Resource
 cp "$script_dir/Resources/AppIcons/AppIconDark.png" "$app_dir/Contents/Resources/AppIconDark.png"
 # Synchronize this generated bundle only; original artwork and project data are untouched.
 rsync -a --delete "$project_dir/dist/" "$app_dir/Contents/Resources/Web/"
+(cd "$project_dir" && node scripts/package-notices.mjs "$app_dir/Contents/Resources/Notices")
 cat > "$app_dir/Contents/Info.plist" <<'PLIST'
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
