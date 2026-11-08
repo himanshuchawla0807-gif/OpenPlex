@@ -6,7 +6,19 @@ OpenPlex is easiest to understand with one employee and one small task. You can 
 
 For a prebuilt Apple Silicon beta, use the [Mac download](macos-download.md). Open the DMG and drag the app to Applications. That package is ad-hoc signed and unnotarized; macOS may block first launch. The source-build path remains below.
 
-Install Node.js 24+, npm, and Apple's Swift command-line tools. Clone the repository, run `npm ci`, then `npm run app:build`. The build creates `output/OpenPlex.app`; it does not install a system-wide app or bundle any vendor CLI. Open it with `open output/OpenPlex.app`.
+The source build requires macOS 13 or newer, Node.js 24 or newer, npm, and Xcode Command Line Tools. Run these commands from a terminal:
+
+```sh
+git clone https://github.com/himanshuchawla0807-gif/OpenPlex.git
+cd OpenPlex
+node --version
+xcode-select -p
+npm ci
+npm run app:build
+npm run app:open
+```
+
+If `xcode-select -p` reports a missing developer directory, install the tools with `xcode-select --install` and rerun the check. The build bundles the web interface into `output/OpenPlex.app` and signs it ad hoc. Install and sign in to your chosen vendor CLI separately.
 
 The app starts with three welcome pages. Choose Light, Dark or System. System follows your Mac's current appearance; the selection can be changed later.
 
@@ -16,7 +28,7 @@ For Codex, use the [official CLI installation and sign-in guide](https://develop
 
 Claude Code uses its own installation and sign-in; follow [Anthropic's setup guide](https://code.claude.com/docs/en/setup). Test it outside OpenPlex before selecting it for an employee. Other catalog entries have adapter-specific limitations; do not treat their presence as a certification.
 
-The Mac app discovers supported executables in `~/.local/bin`, `/opt/homebrew/bin` and `/usr/local/bin`. If a CLI works only through an interactive shell alias or an unusual PATH, make its actual executable available in one of the supported locations and reopen the app. Do not copy credentials into the repository.
+For Codex and Claude Code, check the executable with `command -v codex` or `command -v claude`. The native app looks in `~/.local/bin`, `/opt/homebrew/bin`, and `/usr/local/bin`. If your terminal resolves an alias, shell function, or a version-manager path, make the vendor executable available in one of those directories and reopen OpenPlex. The interactive terminal also checks the vendor-specific bin directories under `~/.minimax-code`, `~/.opencode`, and `~/.kilo`.
 
 ## Choose a folder and a person
 
@@ -43,7 +55,7 @@ Open Office Communicate. In all-hands, “What's going on?” addresses every hi
 - **Choose a folder:** select an existing folder through the Mac app, not just the browser preview.
 - **CLI not found:** check the executable location and reopen OpenPlex after installation.
 - **Sign-in or allowance:** confirm a request works in the vendor CLI; use that CLI's own login and account controls.
-- **Port 5181 busy:** close another OpenPlex instance. The app's bundled server uses a stable loopback origin.
+- **Port 5181 busy:** run `lsof -nP -iTCP:5181 -sTCP:LISTEN` to identify the process, then close the duplicate app or free the port and reopen OpenPlex. The native app serves its bundled UI on `127.0.0.1:5181`. The [browser preview](../CONTRIBUTING.md#browser-preview) uses port 5180 and has separate local storage.
 - **MCP/configuration error:** review the employee's MCP JSON and test the server independently. Do not approve an unknown command merely to clear an error.
 - **Status report cannot isolate configuration:** some installed CLI versions or unusual MCP server names cannot be safely overridden. The app fails visibly and leaves the working session alone.
 - **A black patch or missing reply:** note the provider version, theme, view and reproduction steps. Share a redacted screenshot, never tokens or private transcripts.
