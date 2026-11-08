@@ -26,3 +26,11 @@ test('room history is bounded, room-specific and contains only supplied shared c
  assert.notEqual(roomConversationKey('p','one'),roomConversationKey('p','two'));assert.equal(parseRoomConversation({}).length,0)
  const context=roomConversationContext(parsed,'Shared room goal');assert.ok(context.length<=50000);assert.ok(!context.includes('private employee chat'));assert.ok(!context.includes('injected'))
 })
+
+test('Markdown intake classifies skill names only inside opening front matter',()=>{
+ const document={name:'notes.md',text:'---\nsummary: notes\n---\nname: body-name',kind:'auto'}
+ const skill={name:'guide.markdown',text:'\uFEFF---\r\nname: portable-skill\r\n---\r\nUse this guide.',kind:'auto'}
+ const profile=intakeAttachments(defaultProfile(0),[document,skill])
+ assert.deepEqual(profile.instructions,[{name:'notes.md',content:document.text}])
+ assert.deepEqual(profile.skills,[{name:'portable-skill.md',content:skill.text}])
+})

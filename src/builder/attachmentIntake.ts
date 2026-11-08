@@ -13,8 +13,9 @@ export function intakeAttachments(profile:EmployeeProfile,files:ChatAttachment[]
     else if(['instructions','skills','plugins','mcp'].some(k=>Object.hasOwn(raw,k)))patch=Object.fromEntries(Object.entries(raw).filter(([k])=>['instructions','skills','plugins','mcp'].includes(k)))
    }}catch{/* Non-configuration JSON remains model reference material. */}
   }
-  if(!patch&&/\.md$/i.test(file.name)){
-   const name=file.text.match(/^---\s*\n[\s\S]*?^name:\s*["']?([^\n"']+)/m)?.[1]?.trim()
+  if(!patch&&/\.(?:md|markdown)$/i.test(file.name)){
+   const frontMatter=file.text.match(/^\uFEFF?---[ \t]*\r?\n([\s\S]*?)^---[ \t]*(?:\r?\n|$)/m)
+   const name=frontMatter?.index===0?frontMatter[1].match(/^name:[ \t]*["']?([^\r\n"']+)/m)?.[1]?.trim():undefined
    const key=name||/skill/i.test(file.name)?'skills':/plugin/i.test(file.name)?'plugins':'instructions'
    patch={[key]:[{name:name?`${name}.md`:file.name,content:file.text}]}
   }
