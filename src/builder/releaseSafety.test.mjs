@@ -34,3 +34,11 @@ test('Markdown intake classifies skill names only inside opening front matter',(
  assert.deepEqual(profile.instructions,[{name:'notes.md',content:document.text}])
  assert.deepEqual(profile.skills,[{name:'portable-skill.md',content:skill.text}])
 })
+
+test('builder merges files by the name that will actually be stored',()=>{
+ let profile=patch({instructions:[{name:'team/policy.md',content:'Original'}]},defaultProfile(0))
+ profile=patch({instructions:[{name:'team/policy.md',content:'Revised'}]},profile)
+ assert.deepEqual(profile.instructions,[{name:'team_policy.md',content:'Revised'}])
+ assert.throws(()=>patch({instructions:[{name:'team/policy.md',content:'A'},{name:'team_policy.md',content:'B'}]},profile),/duplicate filename/)
+ assert.deepEqual(patch({remove:{instructions:['team/policy.md']}},profile).instructions,[])
+})

@@ -8,10 +8,11 @@ export function defaultProfile(index:number):EmployeeProfile{
  const character=campusCast[index]??campusCast[0]
  return {harness:'codex',name:character.name,role:character.title,systemPrompt:`You are ${character.name}, an agent specializing in ${character.specialties.join(' and ')}. ${character.description}\nBe clear about your progress, ask when necessary, and verify your work.`,instructions:[],skills:[],mcp:'{}',plugins:[]}
 }
+export const normalizeEmployeeFileName=(name:string)=>Array.from(name).filter(c=>c.charCodeAt(0)>31&&c.charCodeAt(0)!==127).join('').replace(/[\\/]/g,'_').slice(0,100)
 export function parseProfile(value:unknown,index:number):EmployeeProfile{
  const fallback=defaultProfile(index),p=value&&typeof value==='object'?value as Partial<EmployeeProfile>:{}
  const text=(v:unknown,max:number,otherwise='')=>typeof v==='string'?v.slice(0,max):otherwise
- const files=(v:unknown):EmployeeFile[]=>Array.isArray(v)?v.slice(0,20).flatMap(file=>file&&typeof file==='object'&&typeof file.name==='string'&&typeof file.content==='string'?[{name:Array.from(file.name as string).filter(c=>c.charCodeAt(0)>31&&c.charCodeAt(0)!==127).join('').replace(/[\\/]/g,'_').slice(0,100),content:file.content.slice(0,100000)}]:[]):[]
+ const files=(v:unknown):EmployeeFile[]=>Array.isArray(v)?v.slice(0,20).flatMap(file=>file&&typeof file==='object'&&typeof file.name==='string'&&typeof file.content==='string'?[{name:normalizeEmployeeFileName(file.name),content:file.content.slice(0,100000)}]:[]):[]
  return {harness:validHarness(p.harness)?p.harness:'codex',name:text(p.name,80,fallback.name).trim()||fallback.name,role:text(p.role,120,fallback.role),systemPrompt:text(p.systemPrompt,24000,fallback.systemPrompt),instructions:files(p.instructions),skills:files(p.skills),mcp:text(p.mcp,100000,'{}'),plugins:files(p.plugins)}
 }
 export function profileError(profile:EmployeeProfile):string|null{

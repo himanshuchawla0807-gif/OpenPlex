@@ -1,4 +1,4 @@
-import {parseProfile,profileError,type EmployeeProfile} from './employees.ts'
+import {normalizeEmployeeFileName,parseProfile,profileError,type EmployeeProfile} from './employees.ts'
 import {validHarness} from './harnesses.ts'
 export function readBuilderReply(text:string,previous:EmployeeProfile):{reply:string;profile:EmployeeProfile}{
  const raw=JSON.parse(text.trim().replace(/^```(?:json)?\s*/, '').replace(/\s*```$/, ''))
@@ -14,7 +14,19 @@ export function readBuilderReply(text:string,previous:EmployeeProfile):{reply:st
  const removal=p.remove??{}
  if(!removal||typeof removal!=='object'||Array.isArray(removal)||Object.keys(removal).some(key=>!['instructions','skills','plugins','mcp'].includes(key))||Object.values(removal).some(v=>!Array.isArray(v)||v.length>20||v.some(n=>typeof n!=='string')))throw Error('Invalid explicit removal list.')
  const next={...previous,...p}
- for(const key of ['instructions','skills','plugins'] as const){const files=new Map(previous[key].map(f=>[f.name,f]));for(const file of p[key]??[])files.set(file.name,file);for(const name of removal[key]??[])files.delete(name);next[key]=[...files.values()];if(next[key].length>20)throw Error(`Keep at most 20 ${key} files.`)}
+ for(const key of ['instructions','skills','plugins'] as const){
+  const files=new Map(previous[key].map(file=>[file.name,file]))
+  const proposedNames=new Set<string>()
+  for(const file of p[key]??[]){
+   const name=normalizeEmployeeFileName(file.name)
+   if(!name.trim()||proposedNames.has(name))throw Error(`The proposed ${key} contain a blank or duplicate filename.`)
+   proposedNames.add(name)
+   files.set(name,{...file,name})
+  }
+  for(const name of removal[key]??[])files.delete(normalizeEmployeeFileName(name))
+  next[key]=[...files.values()]
+  if(next[key].length>20)throw Error(`Keep at most 20 ${key} files.`)
+ }
  if(p.mcp!==undefined){const value=JSON.parse(p.mcp);if(!value||typeof value!=='object'||Array.isArray(value))throw Error('MCP configuration must be an object.')}
  const servers={...JSON.parse(previous.mcp),...(p.mcp===undefined?{}:JSON.parse(p.mcp))};for(const name of removal.mcp??[])delete servers[name];next.mcp=JSON.stringify(servers)
  const profile=parseProfile(next,0),error=profileError(profile);if(error)throw Error(error)
