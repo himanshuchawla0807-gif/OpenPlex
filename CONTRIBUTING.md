@@ -4,14 +4,18 @@ Thanks for helping make the office useful. A good contribution solves a concrete
 
 ## Run locally
 
-Use Node.js 24 or newer. On macOS, install Xcode Command Line Tools for the native wrapper.
+Use Node.js 24 or newer. The native wrapper requires macOS 13 or newer and Xcode Command Line Tools.
+
+### Browser preview
 
 ```sh
 npm ci
 npm run dev:builder
 ```
 
-The browser preview supports UI work. Native folder selection, real harness sessions and terminal I/O require the Mac app:
+Open [127.0.0.1:5180](http://127.0.0.1:5180/) for UI work. Use the Mac app for native folder selection, real harness sessions and terminal I/O.
+
+### Native app
 
 ```sh
 npm run app:build
@@ -20,7 +24,26 @@ npm run app:open
 
 ## Before opening a pull request
 
-Run `npm run lint`, `npm run build`, `npm run test:builder`, and `npm test`. For native changes also run `npm run test:native`, `npm run test:terminal`, `npm run test:employee-workspace`, and `npm run test:http` on macOS. Include the commands and results in your pull request. Explain any skipped or unavailable check.
+Run the web checks from the repository root:
+
+```sh
+npm run lint
+npm run build
+npm run test:builder
+npm test
+```
+
+For native changes, also run these checks on macOS:
+
+```sh
+npm run test:native
+npm run test:terminal
+npm run test:employee-workspace
+npm run test:http
+npm run app:build
+```
+
+For landing-page edits, run `npm run build:site`. The [CI workflow](.github/workflows/ci.yml) shows the full web and Mac checks. Include the commands and results in your pull request and explain any checks you skipped.
 
 Use synthetic projects and messages in screenshots. Never commit `.env` files, credentials, user profiles, transcripts, local app storage, build output or vendor CLI data. `npm run check:release` scans publishable files and Git history for configured patterns; it is one check, not a complete secret detector.
 
