@@ -1,7 +1,7 @@
 import {test} from 'node:test'
 import assert from 'node:assert/strict'
 import {projectConversation,mergeConversation,mergeSubmittedConversation,terminalActivity,TerminalConversationInput} from './conversation.ts'
-import {readBuilderReply} from './builderProtocol.ts'
+import {builderMessageSizeError,readBuilderReply} from './builderProtocol.ts'
 import {defaultProfile} from './employees.ts'
 test('Codex chrome and prompt footer stay out of chat while reply streams',()=>{
  const start='OpenAI Codex (v0.163.0)\n/init - create instructions\n› Hello, how’s it going?\n\n• Hey Himanshu! Going well—Otis here'
@@ -112,4 +112,13 @@ test('a composer paste is canonical even after terminal device-response traffic'
  const input=new TerminalConversationInput()
  input.write('\x1b[?1;2c')
  assert.deepEqual(input.write('\x1b[200~Please summarize the demo.\x1b[201~\r'),['Please summarize the demo.'])
+})
+
+test('builder message limits account for UTF-8 bytes and attachment headings',()=>{
+ const prompt='界'.repeat(33333)
+ assert.equal(builderMessageSizeError(prompt+'a'),null)
+ assert.match(builderMessageSizeError(prompt+'ab'),/100 KB in UTF-8/)
+ assert.match(builderMessageSizeError(prompt+'\n\nAttached file: note.md\nOK'),/100 KB in UTF-8/)
+ assert.equal(builderMessageSizeError('a'.repeat(80000)),null)
+ assert.match(builderMessageSizeError('a'.repeat(80001)),/80,000 characters/)
 })

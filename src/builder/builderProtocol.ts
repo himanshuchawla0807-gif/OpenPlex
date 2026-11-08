@@ -1,5 +1,18 @@
 import {normalizeEmployeeFileName,parseProfile,profileError,type EmployeeProfile} from './employees.ts'
 import {validHarness} from './harnesses.ts'
+export const builderMessageCharacterLimit = 80000
+const nativePromptByteLimit = 100000 // AgentRuntime.run checks the UTF-8 byte count.
+
+export function builderMessageSizeError(text: string): string | null {
+ if (text.length > builderMessageCharacterLimit) {
+  return 'Use a shorter message or fewer attachments (80,000 characters per turn).'
+ }
+ if (new TextEncoder().encode(text).byteLength > nativePromptByteLimit) {
+  return 'This message and its attachments exceed 100 KB in UTF-8. Shorten the text or remove an attachment.'
+ }
+ return null
+}
+
 export function readBuilderReply(text:string,previous:EmployeeProfile):{reply:string;profile:EmployeeProfile}{
  const raw=JSON.parse(text.trim().replace(/^```(?:json)?\s*/, '').replace(/\s*```$/, ''))
  if(!raw||typeof raw!=='object'||typeof raw.reply!=='string'||!raw.reply.trim())throw Error('The builder did not return a valid reply. Ask it to retry with the profile JSON format.')
