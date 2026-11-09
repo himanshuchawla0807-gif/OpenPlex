@@ -34,7 +34,7 @@ export function dueScheduledTasks(tasks:ScheduledTask[],sessions:AgentSessions,c
 export function settleScheduledTasks(tasks:ScheduledTask[],sessions:AgentSessions):ScheduledTask[]{
  return tasks.map(task=>{
   const session=sessions[task.key]
-  if(task.status!=='running'||!task.startedAt||!session?.finishedAt||session.finishedAt<task.startedAt||session.lastTask!==task.prompt||!['complete','attention'].includes(session.status))return task
+  if(task.status!=='running'||!task.startedAt||!session?.startedAt||session.startedAt<task.startedAt||!session.finishedAt||session.finishedAt<session.startedAt||session.lastTask!==task.prompt||!['complete','attention'].includes(session.status))return task
   return {...task,status:session.status==='complete'?'completed':'attention',finishedAt:session.finishedAt} as ScheduledTask
  })
 }

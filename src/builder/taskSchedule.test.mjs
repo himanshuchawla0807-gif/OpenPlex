@@ -37,8 +37,16 @@ test('add validates and cannot replace existing or execute immediately',()=>{
 })
 test('completion requires matching task and a terminal result from this execution',()=>{
  const tasks=[task({status:'running',startedAt:1500})]
- const session={status:'complete',messages:[],lastTask:'Review the project',finishedAt:2000}
+ const session={status:'complete',messages:[],lastTask:'Review the project',startedAt:1500,finishedAt:2000}
  assert.equal(settleScheduledTasks(tasks,{'project:room:oscar':session})[0].status,'completed')
  assert.equal(settleScheduledTasks(tasks,{'project:room:oscar':{...session,status:'attention'}})[0].status,'attention')
  for(const extra of [{finishedAt:1000},{lastTask:'A different task'},{status:'running'}])assert.equal(settleScheduledTasks(tasks,{'project:room:oscar':{...session,...extra}})[0],tasks[0])
+})
+
+test('a matching previous execution cannot settle a new schedule claim',()=>{
+ const queued=task({status:'running',startedAt:1500})
+ const earlier={status:'complete',messages:[],lastTask:queued.prompt,startedAt:1200,finishedAt:1500}
+ assert.equal(settleScheduledTasks([queued],{[queued.key]:earlier})[0],queued)
+ const current={...earlier,startedAt:1500,finishedAt:1800}
+ assert.equal(settleScheduledTasks([queued],{[queued.key]:current})[0].status,'completed')
 })
