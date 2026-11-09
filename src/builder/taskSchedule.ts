@@ -17,8 +17,15 @@ export function parseTaskSchedule(value:unknown):ScheduledTask[]{
  })
 }
 export function addScheduledTask(tasks:ScheduledTask[],task:ScheduledTask):ScheduledTask[]{
- if(tasks.length>=maxTasks||tasks.some(t=>t.id===task.id)||task.status!=='pending'||parseTaskSchedule([task]).length!==1)return tasks
- return [...tasks,task]
+ if(tasks.some(t=>t.id===task.id)||task.status!=='pending'||parseTaskSchedule([task]).length!==1)return tasks
+ if(tasks.length<maxTasks)return [...tasks,task]
+ let oldest=-1
+ for(const [index,previous] of tasks.entries()){
+  if(previous.status!=='completed'&&previous.status!=='cancelled')continue
+  const time=previous.finishedAt??previous.createdAt
+  if(oldest===-1||time<(tasks[oldest].finishedAt??tasks[oldest].createdAt))oldest=index
+ }
+ return oldest===-1?tasks:[...tasks.filter((_,index)=>index!==oldest),task]
 }
 export function cancelScheduledTask(tasks:ScheduledTask[],id:string,now=Date.now()):ScheduledTask[]{
  return tasks.map(t=>t.id===id&&t.status==='pending'?{...t,status:'cancelled',finishedAt:now}:t)

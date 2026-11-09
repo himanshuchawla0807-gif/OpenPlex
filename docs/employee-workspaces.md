@@ -75,7 +75,10 @@ with a valid employee profile, chosen project folder, and no active work for tha
 employee. Scheduled work uses the current saved profile and read-only defaults.
 Claims are saved before launch; a storage failure prevents launch. Interrupted
 claims recover as attention and are never automatically replayed. Pending tasks
-can be cancelled. This is an app-open queue, not an operating-system scheduler.
+can be cancelled. The queue keeps up to 500 entries. At capacity, adding a
+task removes the oldest completed or cancelled entry, if one exists. Pending,
+running and attention entries stay in the queue. This is an app-open queue,
+not an operating-system scheduler.
 
 ## Verification
 

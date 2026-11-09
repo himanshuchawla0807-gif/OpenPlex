@@ -50,3 +50,17 @@ test('a matching previous execution cannot settle a new schedule claim',()=>{
  const current={...earlier,startedAt:1500,finishedAt:1800}
  assert.equal(settleScheduledTasks([queued],{[queued.key]:current})[0].status,'completed')
 })
+
+test('a full schedule can replace its oldest finished entry, but not unresolved work',()=>{
+ const finished=Array.from({length:498},(_,i)=>task({id:'past-'+i,status:'completed',finishedAt:5000+i}))
+ const cancelled=task({id:'older-cancelled',status:'cancelled',finishedAt:4000})
+ const attention=task({id:'needs-attention',status:'attention',finishedAt:3000})
+ const next=task({id:'new'})
+ const result=addScheduledTask([...finished,attention,cancelled],next)
+ assert.equal(result.length,500)
+ assert.equal(result.at(-1),next)
+ assert.ok(result.includes(attention))
+ assert.ok(!result.includes(cancelled))
+ const unresolved=Array.from({length:500},(_,i)=>task({id:'pending-'+i}))
+ assert.equal(addScheduledTask(unresolved,next),unresolved)
+})
