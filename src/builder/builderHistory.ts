@@ -8,7 +8,7 @@ export function loadBuilderHistory(storage:StorageLike,key:string,now=Date.now()
   const raw=JSON.parse(saved),legacy=Array.isArray(raw),messages=legacy?raw:raw.messages
   if(!legacy&&(!Number.isFinite(raw.updatedAt)||now-raw.updatedAt>BUILDER_RETENTION_MS)){storage.removeItem(key+':conversation');return []}
   const valid=Array.isArray(messages)?messages.filter(m=>m&&['user','assistant'].includes(m.role)&&typeof m.text==='string').slice(-40):[]
-  if(legacy)saveBuilderHistory(storage,key,valid,now)
+  if(legacy){try{saveBuilderHistory(storage,key,valid,now)}catch{/* A failed migration cannot erase readable history. */}}
   return valid
  }catch{return []}
 }
