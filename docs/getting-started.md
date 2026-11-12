@@ -38,6 +38,8 @@ OpenPlex writes employee-owned configuration under `.openplex/employees/` in tha
 
 A good first instruction is concrete: “Review the README and list three unclear setup steps. Do not edit files.” Keep edits disabled at the start. Read the response, check its evidence, and grant only the capabilities your next task needs.
 
+The employee builder checks the combined message and attachment text before sending it. If it asks you to shorten a turn, remove an attachment or send an excerpt. You can still run the read-only **Test employee setup** check while a draft is open.
+
 ## Work in chat or terminal
 
 Connect the employee's selected harness. Chat projects the supported CLI conversation into readable turns; Terminal exposes the real interactive session. Some vendor output cannot be projected perfectly, so diagnostics and Terminal remain available. Do not paste shell commands into a chat expecting OpenPlex to execute them directly; the harness interprets its own input.
